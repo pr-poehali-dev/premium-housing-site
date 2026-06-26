@@ -121,9 +121,15 @@ const services = [
 ];
 
 const reviews = [
-  { name: 'Александр М.', role: 'Резиденция, 420 м²', text: 'Дом построили точно в срок и без выхода за смету. Архитектура — произведение искусства. Рекомендую.', stars: 5 },
-  { name: 'Елена и Дмитрий', role: 'Вилла, 560 м²', text: 'Сопровождали на каждом этапе, присылали отчёты с фото. Качество отделки превзошло ожидания.', stars: 5 },
-  { name: 'Игорь С.', role: 'Особняк, 380 м²', text: 'Ценю прозрачность: фиксированная цена в договоре и ни рубля сверху. Команда профессионалов.', stars: 5 },
+  { name: 'Александр М.', role: 'Резиденция «Лесная», 420 м²', text: 'Дом построили точно в срок и без выхода за смету. Архитектура — произведение искусства. Особенно впечатлил авторский фасад из кирпича ручной формовки. Рекомендую без оговорок.', stars: 5 },
+  { name: 'Елена и Дмитрий К.', role: 'Вилла «Модерн», 560 м²', text: 'Сопровождали на каждом этапе, каждую неделю присылали фотоотчёты. Качество чистовой отделки превзошло все ожидания — не дом, а арт-объект. Живём второй год и всё как новое.', stars: 5 },
+  { name: 'Игорь С.', role: 'Особняк «Каменный», 380 м²', text: 'Ценю прозрачность: фиксированная цена в договоре и ни рубля сверху. Сначала не верил, что так бывает — теперь убеждён. Команда настоящих профессионалов своего дела.', stars: 5 },
+  { name: 'Наталья В.', role: 'Коттедж «Берёзовый», 185 м²', text: 'Долго выбирала подрядчика, объездила десятки компаний. ЮНИТ 1 выделился с первой встречи: честно рассказали про сроки, материалы, возможные нюансы. Дом сдали даже раньше срока.', stars: 5 },
+  { name: 'Михаил и Оксана Р.', role: 'Дом «Семейный», 240 м²', text: 'Строили для большой семьи — трое детей, пожилые родители. Архитекторы сами предложили решения, о которых мы не думали: отдельный вход, широкие дверные проёмы, удобная котельная. Вдумчивый подход.', stars: 5 },
+  { name: 'Сергей Т.', role: 'Вилла «Чёрный бриллиант», 680 м²', text: 'Строил премиальный объект и боялся, что не вывезут по качеству. Зря боялся. Бассейн, умный дом, отделка — всё на уровне европейских стандартов. Покажу любому скептику.', stars: 5 },
+  { name: 'Анна Ф.', role: 'Дом «Уют», 220 м²', text: 'Брала в ипотеку — была важна каждая копейка. Смета не менялась ни разу за 8 месяцев строительства. Это честность, которую сложно найти на рынке. Спасибо всей команде.', stars: 5 },
+  { name: 'Андрей и Марина Л.', role: 'Усадьба «Скандинавия», 445 м²', text: 'Хотели скандинавский стиль — получили именно его, без компромиссов. Клеёный брус, финская баня, открытая терраса с видом на лес. Дизайнер угадал всё с первого эскиза.', stars: 5 },
+  { name: 'Виктор Н.', role: 'Коттедж «Светлый», 210 м²', text: 'Приятно удивила скорость: от подписания договора до заселения — 8 месяцев. Белый фасад, панорамные окна, плоская кровля — именно то, что хотел. Уже советую коллегам.', stars: 5 },
 ];
 
 const blog = [
@@ -783,24 +789,40 @@ const Index = () => {
             <span className="text-gold text-sm tracking-widest uppercase">Отзывы</span>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4">Что говорят владельцы</h2>
           </div>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-7">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {reviews.map((r) => (
-              <div key={r.name} className="p-8 rounded-2xl bg-card border border-border">
-                <div className="flex gap-1 mb-5 text-gold">
-                  {Array.from({ length: r.stars }).map((_, i) => <Icon key={i} name="Star" size={18} className="fill-gold" />)}
-                </div>
-                <p className="text-muted-foreground leading-relaxed mb-7">«{r.text}»</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full gold-gradient flex items-center justify-center font-semibold text-primary-foreground">
-                    {r.name[0]}
+              <div key={r.name} className="group flex flex-col p-7 rounded-2xl bg-card border border-border hover:border-gold/40 transition-all hover:shadow-lg hover:shadow-gold/5">
+                <Icon name="Quote" size={28} className="text-gold/30 mb-4" />
+                <p className="text-muted-foreground leading-relaxed flex-1 mb-6 text-sm">{r.text}</p>
+                <div className="border-t border-border/50 pt-5 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full gold-gradient flex items-center justify-center font-bold text-primary-foreground text-sm shrink-0">
+                      {r.name[0]}
+                    </div>
+                    <div>
+                      <div className="font-semibold text-sm">{r.name}</div>
+                      <div className="text-xs text-muted-foreground">{r.role}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-medium">{r.name}</div>
-                    <div className="text-sm text-muted-foreground">{r.role}</div>
+                  <div className="flex gap-0.5 shrink-0">
+                    {Array.from({ length: r.stars }).map((_, i) => <Icon key={i} name="Star" size={13} className="fill-gold text-gold" />)}
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+          <div className="mt-10 md:mt-14 flex flex-col sm:flex-row items-center justify-center gap-6 text-center">
+            <div className="flex -space-x-3">
+              {['А','Е','И','Н','М'].map((l, i) => (
+                <div key={i} className="w-10 h-10 rounded-full gold-gradient border-2 border-background flex items-center justify-center text-xs font-bold text-primary-foreground">{l}</div>
+              ))}
+            </div>
+            <div>
+              <div className="flex gap-1 justify-center sm:justify-start mb-1">
+                {Array.from({ length: 5 }).map((_, i) => <Icon key={i} name="Star" size={16} className="fill-gold text-gold" />)}
+              </div>
+              <div className="text-sm text-muted-foreground"><span className="text-foreground font-semibold">4.9</span> из 5 на основе <span className="text-foreground font-semibold">180+</span> отзывов</div>
+            </div>
           </div>
         </div>
       </section>
