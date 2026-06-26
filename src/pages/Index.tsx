@@ -151,6 +151,27 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState('premium');
   const [modal, setModal] = useState<(Project & { badge: string; color: string }) | null>(null);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupForm, setPopupForm] = useState({ name: '', phone: '' });
+  const [popupSent, setPopupSent] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({ h: 23, m: 47, s: 12 });
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowPopup(true), 25000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const tick = setInterval(() => {
+      setTimeLeft((t) => {
+        if (t.s > 0) return { ...t, s: t.s - 1 };
+        if (t.m > 0) return { ...t, m: t.m - 1, s: 59 };
+        if (t.h > 0) return { h: t.h - 1, m: 59, s: 59 };
+        return t;
+      });
+    }, 1000);
+    return () => clearInterval(tick);
+  }, []);
 
   const modalCat = modal ? portfolioCategories.find((c) => c.badge === modal.badge) : null;
   const modalIdx = modalCat ? modalCat.projects.findIndex((p) => p.title === modal!.title) : -1;
@@ -327,6 +348,36 @@ const Index = () => {
           <Icon name="ChevronDown" size={24} />
         </button>
       </section>
+
+      {/* TRUST BAR */}
+      <div className="border-y border-border/50 bg-card/60 py-4 overflow-hidden">
+        <div className="flex gap-12 items-center animate-[marquee_30s_linear_infinite] whitespace-nowrap w-max">
+          {[
+            { icon: 'Award', text: 'Член НОСТРОЙ' },
+            { icon: 'ShieldCheck', text: 'СРО допуск' },
+            { icon: 'BadgeCheck', text: 'ИСО 9001' },
+            { icon: 'Star', text: 'Топ-10 застройщиков МО' },
+            { icon: 'FileCheck', text: '180+ сданных объектов' },
+            { icon: 'Trophy', text: 'Премия «Дом года 2024»' },
+            { icon: 'Users', text: 'Собственная бригада 120+ чел.' },
+            { icon: 'Clock', text: 'Работаем с 2009 года' },
+            { icon: 'Award', text: 'Член НОСТРОЙ' },
+            { icon: 'ShieldCheck', text: 'СРО допуск' },
+            { icon: 'BadgeCheck', text: 'ИСО 9001' },
+            { icon: 'Star', text: 'Топ-10 застройщиков МО' },
+            { icon: 'FileCheck', text: '180+ сданных объектов' },
+            { icon: 'Trophy', text: 'Премия «Дом года 2024»' },
+            { icon: 'Users', text: 'Собственная бригада 120+ чел.' },
+            { icon: 'Clock', text: 'Работаем с 2009 года' },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground shrink-0">
+              <Icon name={item.icon} size={16} className="text-gold shrink-0" />
+              <span>{item.text}</span>
+              <span className="text-border ml-6">·</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* ABOUT */}
       <section id="about" className="py-16 md:py-28 container">
@@ -762,6 +813,51 @@ const Index = () => {
         </div>
       </section>
 
+      {/* URGENCY BLOCK */}
+      <section className="py-12 md:py-16 bg-gradient-to-r from-background via-card/80 to-background border-y border-gold/20">
+        <div className="container">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-medium mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" /> Акция действует ограниченное время
+              </div>
+              <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">
+                Бесплатный проект при заключении договора до конца месяца
+              </h2>
+              <p className="text-muted-foreground text-sm md:text-base max-w-xl">
+                Стоимость архитектурного проекта — от 350 000 ₽. При заключении договора на строительство в июне — проект в подарок.
+              </p>
+            </div>
+            <div className="flex flex-col items-center gap-5 shrink-0">
+              <div className="flex gap-3">
+                {[
+                  { val: String(timeLeft.h).padStart(2, '0'), label: 'часов' },
+                  { val: String(timeLeft.m).padStart(2, '0'), label: 'минут' },
+                  { val: String(timeLeft.s).padStart(2, '0'), label: 'секунд' },
+                ].map(({ val, label }, i) => (
+                  <div key={label} className="flex items-center gap-3">
+                    <div className="text-center">
+                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl gold-gradient flex items-center justify-center font-display text-2xl md:text-3xl font-bold text-primary-foreground">
+                        {val}
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-1">{label}</div>
+                    </div>
+                    {i < 2 && <span className="font-bold text-gold text-2xl mb-5">:</span>}
+                  </div>
+                ))}
+              </div>
+              <Button
+                onClick={() => scrollTo('contacts')}
+                className="gold-gradient text-primary-foreground hover:opacity-90 h-12 px-8 font-medium w-full"
+              >
+                Успеть получить проект бесплатно
+                <Icon name="ArrowRight" size={16} className="ml-2" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CONTACTS */}
       <section id="contacts" className="py-16 md:py-28 bg-card/40 border-t border-border/50">
         <div className="container grid lg:grid-cols-2 gap-8 md:gap-16">
@@ -961,6 +1057,77 @@ const Index = () => {
               </div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* FLOATING CALL BUTTON */}
+      <div className="fixed bottom-6 right-4 md:right-8 z-40 flex flex-col items-end gap-3">
+        <a
+          href="tel:89331770086"
+          className="group flex items-center gap-3 gold-gradient text-primary-foreground rounded-full shadow-2xl shadow-gold/30 px-5 py-3.5 font-medium text-sm hover:opacity-90 transition-all hover:scale-105"
+        >
+          <Icon name="Phone" size={18} />
+          <span className="hidden sm:block">8 (933) 177-00-86</span>
+        </a>
+      </div>
+
+      {/* POPUP */}
+      {showPopup && !popupSent && (
+        <div className="fixed inset-0 z-[110] flex items-end sm:items-center justify-center p-4" onClick={() => setShowPopup(false)}>
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
+          <div
+            className="relative bg-card border border-gold/30 rounded-2xl p-6 md:p-8 w-full max-w-md shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button onClick={() => setShowPopup(false)} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors">
+              <Icon name="X" size={20} />
+            </button>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs mb-4">
+              <Icon name="Gift" size={12} /> Специальное предложение
+            </div>
+            <h3 className="font-display text-2xl md:text-3xl font-bold mb-2 leading-tight">
+              Получите бесплатный расчёт стоимости вашего дома
+            </h3>
+            <p className="text-muted-foreground text-sm mb-6">
+              Оставьте номер — архитектор позвонит, уточнит детали и подготовит предварительную смету бесплатно.
+            </p>
+            <form
+              className="space-y-3"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const ok = await sendLead({ ...popupForm, source: 'Поп-ап' });
+                if (ok) setPopupSent(true);
+              }}
+            >
+              <Input
+                value={popupForm.name}
+                onChange={(e) => setPopupForm({ ...popupForm, name: e.target.value })}
+                placeholder="Ваше имя"
+                className="bg-background border-border h-12"
+              />
+              <Input
+                value={popupForm.phone}
+                onChange={(e) => setPopupForm({ ...popupForm, phone: e.target.value })}
+                placeholder="Телефон"
+                className="bg-background border-border h-12"
+              />
+              <Button type="submit" disabled={sending} className="w-full gold-gradient text-primary-foreground hover:opacity-90 h-12 font-medium">
+                {sending ? 'Отправляем...' : 'Получить расчёт бесплатно'}
+              </Button>
+            </form>
+            <p className="text-xs text-muted-foreground text-center mt-3">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+          </div>
+        </div>
+      )}
+
+      {popupSent && (
+        <div className="fixed bottom-24 right-4 md:right-8 z-40 bg-card border border-gold/30 rounded-2xl p-5 max-w-xs shadow-2xl animate-fade-in">
+          <button onClick={() => setPopupSent(false)} className="absolute top-3 right-3 text-muted-foreground hover:text-foreground">
+            <Icon name="X" size={16} />
+          </button>
+          <Icon name="CheckCircle2" size={28} className="text-gold mb-2" />
+          <div className="font-semibold mb-1">Заявка принята!</div>
+          <div className="text-sm text-muted-foreground">Архитектор свяжется с вами в течение часа.</div>
         </div>
       )}
 
