@@ -150,6 +150,7 @@ const Index = () => {
 
   const [activeTab, setActiveTab] = useState('premium');
   const [modal, setModal] = useState<(Project & { badge: string; color: string }) | null>(null);
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   const modalCat = modal ? portfolioCategories.find((c) => c.badge === modal.badge) : null;
   const modalIdx = modalCat ? modalCat.projects.findIndex((p) => p.title === modal!.title) : -1;
@@ -230,27 +231,56 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* NAV */}
-      <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-border/50">
-        <div className="container flex items-center justify-between h-20">
-          <button onClick={() => scrollTo('hero')} className="flex items-center gap-2">
-            <span className="font-display text-2xl font-black tracking-tight uppercase">ЮНИТ <span className="text-gold">1</span></span>
+      <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50">
+        <div className="container flex items-center justify-between h-16 md:h-20">
+          <button onClick={() => { scrollTo('hero'); setMobileMenu(false); }} className="flex items-center gap-2">
+            <span className="font-display text-xl md:text-2xl font-black tracking-tight uppercase">ЮНИТ <span className="text-gold">1</span></span>
           </button>
-          <nav className="hidden lg:flex items-center gap-7">
+          <nav className="hidden lg:flex items-center gap-6">
             {nav.map((n) => (
               <button key={n.id} onClick={() => scrollTo(n.id)} className="text-sm font-bold text-muted-foreground hover:text-gold transition-colors">
                 {n.label}
               </button>
             ))}
           </nav>
-          <div className="hidden sm:flex items-center gap-5">
-            <a href="tel:89331770086" className="text-sm font-bold text-foreground hover:text-gold transition-colors">
+          <div className="flex items-center gap-3 md:gap-5">
+            <a href="tel:89331770086" className="hidden md:block text-sm font-bold text-foreground hover:text-gold transition-colors">
               8 (933) 177-00-86
             </a>
-            <Button onClick={() => scrollTo('contacts')} className="gold-gradient text-primary-foreground hover:opacity-90 font-medium">
+            <Button onClick={() => scrollTo('contacts')} className="gold-gradient text-primary-foreground hover:opacity-90 font-medium hidden sm:inline-flex text-sm px-4 h-9 md:h-10">
               Обсудить проект
             </Button>
+            {/* Бургер */}
+            <button
+              onClick={() => setMobileMenu(!mobileMenu)}
+              className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+            >
+              <span className={`block w-6 h-0.5 bg-foreground transition-all duration-300 ${mobileMenu ? 'rotate-45 translate-y-2' : ''}`} />
+              <span className={`block w-6 h-0.5 bg-foreground transition-all duration-300 ${mobileMenu ? 'opacity-0' : ''}`} />
+              <span className={`block w-6 h-0.5 bg-foreground transition-all duration-300 ${mobileMenu ? '-rotate-45 -translate-y-2' : ''}`} />
+            </button>
           </div>
         </div>
+
+        {/* Мобильное меню */}
+        {mobileMenu && (
+          <div className="lg:hidden border-t border-border/50 bg-background/95 backdrop-blur-md">
+            <div className="container py-4 flex flex-col gap-1">
+              {nav.map((n) => (
+                <button
+                  key={n.id}
+                  onClick={() => { scrollTo(n.id); setMobileMenu(false); }}
+                  className="text-left py-3 px-2 text-base font-bold text-muted-foreground hover:text-gold border-b border-border/30 last:border-0 transition-colors"
+                >
+                  {n.label}
+                </button>
+              ))}
+              <a href="tel:89331770086" className="py-3 px-2 text-base font-bold text-gold flex items-center gap-2 mt-1">
+                <Icon name="Phone" size={16} /> 8 (933) 177-00-86
+              </a>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* HERO */}
@@ -260,58 +290,58 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-background/10" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/20" />
         </div>
-        <div className="container relative z-10 pt-20">
+        <div className="container relative z-10 pt-16 md:pt-20">
           <div className="max-w-2xl animate-fade-up">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 text-gold text-sm mb-7">
-              <Icon name="Sparkles" size={14} /> Премиальное строительство с 2009 года
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/40 text-gold text-xs md:text-sm mb-5 md:mb-7">
+              <Icon name="Sparkles" size={12} /> Премиальное строительство с 2009 года
             </div>
-            <h1 className="font-display text-5xl sm:text-7xl font-bold leading-[1.05] mb-6">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-4 md:mb-6">
               Дома, в которых
               <br />
               <span className="gold-text-gradient">хочется жить</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-xl mb-9 leading-relaxed">
+            <p className="text-base md:text-lg text-muted-foreground max-w-xl mb-7 md:mb-9 leading-relaxed">
               Проектируем и строим премиальные дома под ключ в Москве и Московской области.
               Авторская архитектура, фиксированная смета и гарантия 10 лет.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" onClick={() => scrollTo('calc')} className="gold-gradient text-primary-foreground hover:opacity-90 h-14 px-8 text-base font-medium">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button onClick={() => scrollTo('calc')} className="gold-gradient text-primary-foreground hover:opacity-90 h-12 md:h-14 px-6 md:px-8 text-sm md:text-base font-medium">
                 Рассчитать стоимость
-                <Icon name="ArrowRight" size={18} className="ml-1" />
+                <Icon name="ArrowRight" size={16} className="ml-1" />
               </Button>
-              <Button size="lg" variant="outline" onClick={() => scrollTo('portfolio')} className="h-14 px-8 text-base border-border hover:border-gold hover:text-gold">
+              <Button variant="outline" onClick={() => scrollTo('portfolio')} className="h-12 md:h-14 px-6 md:px-8 text-sm md:text-base border-border hover:border-gold hover:text-gold">
                 Смотреть работы
               </Button>
             </div>
-            <div className="flex flex-wrap gap-x-10 gap-y-4 mt-14">
-              {[['180+', 'домов построено'], ['10 лет', 'гарантия'], ['0 ₽', 'переплат по смете']].map(([v, l]) => (
+            <div className="flex gap-8 md:gap-x-10 mt-10 md:mt-14">
+              {[['180+', 'домов построено'], ['10 лет', 'гарантия'], ['0 ₽', 'переплат']].map(([v, l]) => (
                 <div key={l}>
-                  <div className="font-display text-4xl font-bold text-gold">{v}</div>
-                  <div className="text-sm text-muted-foreground mt-1">{l}</div>
+                  <div className="font-display text-3xl md:text-4xl font-bold text-gold">{v}</div>
+                  <div className="text-xs md:text-sm text-muted-foreground mt-1">{l}</div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <button onClick={() => scrollTo('about')} className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground animate-float-slow">
-          <Icon name="ChevronDown" size={28} />
+        <button onClick={() => scrollTo('about')} className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground animate-float-slow">
+          <Icon name="ChevronDown" size={24} />
         </button>
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="py-28 container">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative">
-            <img src={IMG.stone} alt="О компании" className="rounded-2xl w-full object-cover aspect-[4/5]" />
-            <div className="absolute -bottom-8 -right-4 sm:right-8 bg-card border border-gold/30 rounded-2xl p-6 w-56 shadow-2xl">
-              <div className="font-display text-5xl font-bold text-gold">17</div>
-              <div className="text-sm text-muted-foreground mt-1">лет создаём дома премиум-класса в Подмосковье</div>
+      <section id="about" className="py-16 md:py-28 container">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="relative pb-10 sm:pb-0">
+            <img src={IMG.stone} alt="О компании" className="rounded-2xl w-full object-cover aspect-[4/3] sm:aspect-[4/5]" />
+            <div className="absolute -bottom-2 right-4 sm:-bottom-8 sm:right-8 bg-card border border-gold/30 rounded-2xl p-4 sm:p-6 w-44 sm:w-56 shadow-2xl">
+              <div className="font-display text-4xl sm:text-5xl font-bold text-gold">17</div>
+              <div className="text-xs sm:text-sm text-muted-foreground mt-1">лет создаём дома премиум-класса в Подмосковье</div>
             </div>
           </div>
           <div>
             <span className="text-gold text-sm tracking-widest uppercase">О компании</span>
-            <h2 className="font-display text-5xl font-bold mt-4 mb-6 leading-tight">
-              Архитектурное бюро <br />полного цикла
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-4 mb-6 leading-tight">
+              Строительство <br />полного цикла
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-5">
               ARCHFORM — это команда архитекторов, инженеров и строителей, которые создают
@@ -340,12 +370,12 @@ const Index = () => {
       </section>
 
       {/* PORTFOLIO */}
-      <section id="portfolio" className="py-28 bg-card/40 border-y border-border/50">
+      <section id="portfolio" className="py-16 md:py-28 bg-card/40 border-y border-border/50">
         <div className="container">
-          <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-8 md:mb-10">
             <div>
               <span className="text-gold text-sm tracking-widest uppercase">Портфолио</span>
-              <h2 className="font-display text-5xl font-bold mt-4">Реализованные проекты</h2>
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4">Реализованные проекты</h2>
             </div>
             <p className="text-muted-foreground max-w-md">
               Каждый дом уникален и спроектирован под образ жизни конкретной семьи.
@@ -389,7 +419,7 @@ const Index = () => {
           {/* Сетка проектов */}
           {portfolioCategories.map((cat) =>
             activeTab === cat.key ? (
-              <div key={cat.key} className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-7">
+              <div key={cat.key} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-7">
                 {cat.projects.map((p, i) => (
                   <div key={i} onClick={() => setModal({ ...p, badge: cat.badge, color: cat.color })} className="group relative rounded-2xl overflow-hidden cursor-pointer">
                     <img
@@ -423,32 +453,32 @@ const Index = () => {
       </section>
 
       {/* WHY US */}
-      <section className="py-28 container">
-        <div className="text-center mb-16">
+      <section className="py-16 md:py-28 container">
+        <div className="text-center mb-10 md:mb-16">
           <span className="text-gold text-sm tracking-widest uppercase">Наши преимущества</span>
-          <h2 className="font-display text-5xl font-bold mt-4">Почему выбирают нас</h2>
-          <p className="text-muted-foreground mt-4 max-w-xl mx-auto">17 лет мы строим дома, в которые влюбляются с первого взгляда и живут с удовольствием десятилетиями.</p>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4">Почему выбирают нас</h2>
+          <p className="text-muted-foreground mt-3 md:mt-4 max-w-xl mx-auto text-sm md:text-base">17 лет мы строим дома, в которые влюбляются с первого взгляда и живут с удовольствием десятилетиями.</p>
         </div>
 
         {/* Большой блок с цифрами */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-12">
           {[
             { val: '180+', label: 'домов построено', sub: 'в Москве и области' },
             { val: '17', label: 'лет на рынке', sub: 'с 2009 года' },
-            { val: '100%', label: 'сделок без переплат', sub: 'фиксированная смета' },
-            { val: '4.9', label: 'средний рейтинг', sub: 'по отзывам клиентов' },
+            { val: '100%', label: 'без переплат', sub: 'фиксированная смета' },
+            { val: '4.9', label: 'рейтинг', sub: 'по отзывам клиентов' },
           ].map(({ val, label, sub }) => (
-            <div key={label} className="relative p-7 rounded-2xl bg-card border border-border overflow-hidden group hover:border-gold/40 transition-all">
-              <div className="absolute -top-4 -right-4 font-display text-8xl font-bold text-gold/5 group-hover:text-gold/10 transition-colors select-none">{val}</div>
-              <div className="font-display text-5xl font-bold gold-text-gradient mb-2">{val}</div>
-              <div className="font-semibold text-sm mb-1">{label}</div>
-              <div className="text-xs text-muted-foreground">{sub}</div>
+            <div key={label} className="relative p-4 md:p-7 rounded-2xl bg-card border border-border overflow-hidden group hover:border-gold/40 transition-all">
+              <div className="absolute -top-4 -right-4 font-display text-6xl md:text-8xl font-bold text-gold/5 group-hover:text-gold/10 transition-colors select-none">{val}</div>
+              <div className="font-display text-3xl md:text-5xl font-bold gold-text-gradient mb-1 md:mb-2">{val}</div>
+              <div className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1">{label}</div>
+              <div className="text-xs text-muted-foreground hidden sm:block">{sub}</div>
             </div>
           ))}
         </div>
 
         {/* Карточки преимуществ */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {[
             { icon: 'FileCheck', title: 'Фиксированная смета', desc: 'Цена прописана в договоре и не меняется. Никаких доплат и неожиданных расходов в процессе стройки.' },
             { icon: 'ShieldCheck', title: 'Гарантия 10 лет', desc: 'Официальная гарантия на конструктив дома. При любых вопросах — бесплатно устраняем в течение 30 дней.' },
@@ -473,10 +503,10 @@ const Index = () => {
         </div>
 
         {/* CTA-полоска */}
-        <div className="mt-12 rounded-2xl gold-gradient p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="mt-8 md:mt-12 rounded-2xl gold-gradient p-5 md:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 md:gap-6">
           <div>
-            <div className="font-display text-3xl font-bold text-primary-foreground mb-1">Убедитесь сами — бесплатная консультация</div>
-            <div className="text-primary-foreground/80 text-sm">Архитектор ответит на вопросы и покажет похожие реализованные объекты</div>
+            <div className="font-display text-xl md:text-3xl font-bold text-primary-foreground mb-1">Бесплатная консультация</div>
+            <div className="text-primary-foreground/80 text-xs md:text-sm">Архитектор ответит на вопросы и покажет похожие реализованные объекты</div>
           </div>
           <Button
             onClick={() => document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' })}
@@ -489,12 +519,12 @@ const Index = () => {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="py-28 container">
-        <div className="text-center mb-16">
+      <section id="services" className="py-16 md:py-28 container">
+        <div className="text-center mb-10 md:mb-16">
           <span className="text-gold text-sm tracking-widest uppercase">Услуги</span>
-          <h2 className="font-display text-5xl font-bold mt-4">Полный цикл под ключ</h2>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4">Полный цикл под ключ</h2>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {services.map((s) => (
             <div key={s.title} className="group p-8 rounded-2xl border border-border bg-card/50 hover:border-gold/50 transition-all hover:-translate-y-1">
               <div className="w-14 h-14 rounded-xl gold-gradient flex items-center justify-center mb-6">
@@ -519,22 +549,20 @@ const Index = () => {
       </section>
 
       {/* PROCESS */}
-      <section className="py-28 bg-card/40 border-y border-border/50">
+      <section className="py-16 md:py-28 bg-card/40 border-y border-border/50">
         <div className="container">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12 md:mb-20">
             <span className="text-gold text-sm tracking-widest uppercase">Как мы работаем</span>
-            <h2 className="font-display text-5xl font-bold mt-4">Процесс строительства</h2>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4">Процесс строительства</h2>
+            <p className="text-muted-foreground mt-3 md:mt-4 max-w-xl mx-auto text-sm md:text-base">
               От первого звонка до ключей в руке — прозрачный процесс без неожиданностей.
             </p>
           </div>
 
           {/* Этапы */}
           <div className="relative">
-            {/* Линия-трек */}
             <div className="hidden lg:block absolute top-10 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
-            <div className="grid lg:grid-cols-6 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
               {[
                 { n: '01', icon: 'Phone', title: 'Заявка', desc: 'Оставляете заявку или звоните. Менеджер связывается в течение часа и задаёт уточняющие вопросы.', days: '1 день' },
                 { n: '02', icon: 'Map', title: 'Выезд на участок', desc: 'Архитектор приезжает на участок, оценивает рельеф, грунт, ориентацию по сторонам света, соседей.', days: '2–3 дня' },
@@ -563,7 +591,7 @@ const Index = () => {
           </div>
 
           {/* Дополнительные детали */}
-          <div className="mt-20 grid md:grid-cols-3 gap-6">
+          <div className="mt-10 md:mt-20 grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {[
               { icon: 'BarChart3', title: 'Контроль качества на каждом этапе', desc: 'Независимый технадзор, лабораторные испытания бетона, контроль укладки арматуры и узлов примыканий.' },
               { icon: 'MessageSquare', title: 'Личный кабинет и чат', desc: 'Доступ к онлайн-журналу стройки: фото, документы, график, финансовая отчётность в одном окне.' },
@@ -580,16 +608,16 @@ const Index = () => {
       </section>
 
       {/* CALCULATOR */}
-      <section id="calc" className="py-28 bg-card/40 border-y border-border/50">
+      <section id="calc" className="py-16 md:py-28 bg-card/40 border-y border-border/50">
         <div className="container">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 md:mb-16">
             <span className="text-gold text-sm tracking-widest uppercase">Калькулятор</span>
-            <h2 className="font-display text-5xl font-bold mt-4">Рассчитайте стоимость дома</h2>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto">Предварительный расчёт за минуту. Точную смету подготовим после встречи.</p>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4">Рассчитайте стоимость</h2>
+            <p className="text-muted-foreground mt-3 md:mt-4 max-w-xl mx-auto text-sm md:text-base">Предварительный расчёт за минуту. Точную смету подготовим после встречи.</p>
           </div>
 
-          <div className="grid lg:grid-cols-5 gap-8">
-            <div className="lg:col-span-3 p-8 rounded-2xl bg-card border border-border space-y-9">
+          <div className="grid lg:grid-cols-5 gap-6 md:gap-8">
+            <div className="lg:col-span-3 p-5 md:p-8 rounded-2xl bg-card border border-border space-y-7 md:space-y-9">
               <div>
                 <div className="flex justify-between mb-4">
                   <span className="font-medium">Площадь дома</span>
@@ -648,9 +676,9 @@ const Index = () => {
             </div>
 
             <div className="lg:col-span-2">
-              <div className="sticky top-28 p-8 rounded-2xl gold-gradient text-primary-foreground">
+              <div className="sticky top-20 md:top-28 p-5 md:p-8 rounded-2xl gold-gradient text-primary-foreground">
                 <div className="text-sm opacity-80 mb-2">Предварительная стоимость</div>
-                <div className="font-display text-5xl font-bold mb-6">{fmt(total)}</div>
+                <div className="font-display text-3xl md:text-5xl font-bold mb-4 md:mb-6">{fmt(total)}</div>
                 <div className="space-y-3 text-sm border-t border-primary-foreground/20 pt-5">
                   <Row l="Строительство" v={fmt(Math.round(construction / 100000) * 100000)} />
                   {options.filter((o) => opts.includes(o.key)).map((o) => (
@@ -668,15 +696,15 @@ const Index = () => {
       </section>
 
       {/* GALLERY */}
-      <section id="gallery" className="py-28 container">
-        <div className="text-center mb-14">
+      <section id="gallery" className="py-16 md:py-28 container">
+        <div className="text-center mb-8 md:mb-14">
           <span className="text-gold text-sm tracking-widest uppercase">Галерея</span>
-          <h2 className="font-display text-5xl font-bold mt-4">Атмосфера наших домов</h2>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4">Атмосфера наших домов</h2>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
           {[IMG.hero, IMG.villa, IMG.stone, IMG.villa, IMG.stone, IMG.hero, IMG.villa, IMG.stone].map((src, i) => (
-            <div key={i} className={`group relative overflow-hidden rounded-xl ${i % 3 === 0 ? 'row-span-2' : ''}`}>
-              <img src={src} alt={`Галерея ${i + 1}`} className={`w-full object-cover transition-transform duration-700 group-hover:scale-110 ${i % 3 === 0 ? 'aspect-[3/4] h-full' : 'aspect-square'}`} />
+            <div key={i} className="group relative overflow-hidden rounded-xl">
+              <img src={src} alt={`Галерея ${i + 1}`} className="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/15 transition-colors" />
             </div>
           ))}
@@ -684,13 +712,13 @@ const Index = () => {
       </section>
 
       {/* REVIEWS */}
-      <section id="reviews" className="py-28 bg-card/40 border-y border-border/50">
+      <section id="reviews" className="py-16 md:py-28 bg-card/40 border-y border-border/50">
         <div className="container">
-          <div className="text-center mb-14">
+          <div className="text-center mb-8 md:mb-14">
             <span className="text-gold text-sm tracking-widest uppercase">Отзывы</span>
-            <h2 className="font-display text-5xl font-bold mt-4">Что говорят владельцы</h2>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4">Что говорят владельцы</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-7">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-7">
             {reviews.map((r) => (
               <div key={r.name} className="p-8 rounded-2xl bg-card border border-border">
                 <div className="flex gap-1 mb-5 text-gold">
@@ -713,15 +741,15 @@ const Index = () => {
       </section>
 
       {/* BLOG */}
-      <section id="blog" className="py-28 container">
-        <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
+      <section id="blog" className="py-16 md:py-28 container">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-8 md:mb-14">
           <div>
             <span className="text-gold text-sm tracking-widest uppercase">Блог</span>
-            <h2 className="font-display text-5xl font-bold mt-4">Полезное о строительстве</h2>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4">Полезное о строительстве</h2>
           </div>
           <Button variant="outline" className="border-border hover:border-gold hover:text-gold">Все статьи</Button>
         </div>
-        <div className="grid md:grid-cols-3 gap-7">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-7">
           {blog.map((b) => (
             <article key={b.title} className="group p-7 rounded-2xl border border-border bg-card/50 hover:border-gold/50 transition-all cursor-pointer">
               <span className="inline-block text-xs px-3 py-1 rounded-full bg-gold/10 text-gold mb-5">{b.tag}</span>
@@ -736,12 +764,12 @@ const Index = () => {
       </section>
 
       {/* CONTACTS */}
-      <section id="contacts" className="py-28 bg-card/40 border-t border-border/50">
-        <div className="container grid lg:grid-cols-2 gap-16">
+      <section id="contacts" className="py-16 md:py-28 bg-card/40 border-t border-border/50">
+        <div className="container grid lg:grid-cols-2 gap-8 md:gap-16">
           <div>
             <span className="text-gold text-sm tracking-widest uppercase">Контакты</span>
-            <h2 className="font-display text-5xl font-bold mt-4 mb-6 leading-tight">Обсудим ваш<br />будущий дом</h2>
-            <p className="text-muted-foreground mb-10 max-w-md">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4 mb-4 md:mb-6 leading-tight">Обсудим ваш<br />будущий дом</h2>
+            <p className="text-muted-foreground mb-7 md:mb-10 max-w-md text-sm md:text-base">
               Оставьте заявку — архитектор свяжется в течение часа, ответит на вопросы и предложит решения под ваш участок.
             </p>
             <div className="space-y-5">
@@ -763,7 +791,7 @@ const Index = () => {
             </div>
           </div>
 
-          <form onSubmit={handleContactSubmit} className="p-8 rounded-2xl bg-card border border-border space-y-5">
+          <form onSubmit={handleContactSubmit} className="p-5 md:p-8 rounded-2xl bg-card border border-border space-y-4 md:space-y-5">
             <h3 className="font-display text-3xl font-bold mb-2">Оставить заявку</h3>
             <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Ваше имя" className="bg-background border-border h-12" />
             <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="Телефон" className="bg-background border-border h-12" />
@@ -786,11 +814,11 @@ const Index = () => {
         >
           <div className="absolute inset-0 bg-background/90 backdrop-blur-md" />
           <div
-            className="relative bg-card border border-border rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+            className="relative bg-card border border-border rounded-2xl md:rounded-3xl max-w-3xl w-full max-h-[92vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Фото */}
-            <div className="relative aspect-[16/9] overflow-hidden rounded-t-3xl">
+            <div className="relative aspect-[4/3] sm:aspect-[16/9] overflow-hidden rounded-t-2xl md:rounded-t-3xl">
               <img src={modal.img} alt={modal.title} className="w-full h-full object-cover transition-all duration-500" />
               <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
 
@@ -843,16 +871,16 @@ const Index = () => {
             </div>
 
             {/* Контент */}
-            <div className="p-8">
-              <div className="flex items-start justify-between gap-4 mb-4">
+            <div className="p-4 md:p-8">
+              <div className="flex items-start justify-between gap-3 mb-4">
                 <div>
-                  <h2 className="font-display text-3xl font-bold leading-tight mb-1">{modal.title}</h2>
+                  <h2 className="font-display text-xl md:text-3xl font-bold leading-tight mb-1">{modal.title}</h2>
                   <div className="flex items-center gap-1.5 text-gold text-sm">
                     <Icon name="MapPin" size={14} /> {modal.loc}
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <div className="font-display text-2xl font-bold text-gold">{modal.price}</div>
+                  <div className="font-display text-lg md:text-2xl font-bold text-gold">{modal.price}</div>
                   {modal.year && <div className="text-xs text-muted-foreground mt-1">Год: {modal.year}</div>}
                 </div>
               </div>
@@ -892,7 +920,7 @@ const Index = () => {
                 return (
                   <div className="mb-7">
                     <div className="text-xs text-muted-foreground uppercase tracking-widest mb-3">Похожие проекты</div>
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
                       {similar.map((p) => (
                         <button
                           key={p.title}
