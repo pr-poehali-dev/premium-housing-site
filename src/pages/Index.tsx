@@ -906,19 +906,19 @@ const Index = () => {
             </p>
             <div className="space-y-5">
               {[
-                ['Phone', '8 (933) 177-00-86', 'Ежедневно 9:00–21:00'],
-                ['Mail', 'emmas@yandex.ru', 'Ответим в течение часа'],
-                ['MapPin', 'Одинцово, Маршала Неделина, 6Б, офис 515', 'Офис и шоурум'],
-              ].map(([ic, t, s]) => (
-                <div key={t} className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl border border-gold/30 flex items-center justify-center text-gold shrink-0">
+                { ic: 'Phone', t: '8 (933) 177-00-86', s: 'Ежедневно 9:00–21:00', href: 'tel:+79331770086' },
+                { ic: 'Mail', t: 'emmas@yandex.ru', s: 'Ответим в течение часа', href: 'mailto:emmas@yandex.ru' },
+                { ic: 'MapPin', t: 'Одинцово, Маршала Неделина, 6Б, офис 515', s: 'Офис и шоурум', href: 'https://yandex.ru/maps/?text=Одинцово+Маршала+Неделина+6Б' },
+              ].map(({ ic, t, s, href }) => (
+                <a key={t} href={href} target={ic === 'MapPin' ? '_blank' : undefined} rel={ic === 'MapPin' ? 'noopener noreferrer' : undefined} className="flex items-center gap-4 group">
+                  <div className="w-12 h-12 rounded-xl border border-gold/30 flex items-center justify-center text-gold shrink-0 group-hover:bg-gold/10 transition-colors">
                     <Icon name={ic} size={20} />
                   </div>
                   <div>
-                    <div className="font-medium">{t}</div>
+                    <div className="font-medium group-hover:text-gold transition-colors">{t}</div>
                     <div className="text-sm text-muted-foreground">{s}</div>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
