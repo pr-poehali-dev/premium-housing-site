@@ -25,10 +25,72 @@ const nav = [
   { label: 'Контакты', id: 'contacts' },
 ];
 
-const portfolio = [
-  { img: IMG.hero, title: 'Резиденция «Лесная»', loc: 'Новорижское шоссе', area: '420 м²', term: '11 мес', price: 'от 38 млн ₽' },
-  { img: IMG.villa, title: 'Вилла «Модерн»', loc: 'Рублёво-Успенское ш.', area: '560 м²', term: '14 мес', price: 'от 62 млн ₽' },
-  { img: IMG.stone, title: 'Особняк «Каменный»', loc: 'Калужское шоссе', area: '380 м²', term: '10 мес', price: 'от 34 млн ₽' },
+const P = {
+  p1: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/e6bb7e92-e899-41ff-9431-ec0ee1692930.jpg',
+  p2: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/b57177b1-a97d-4506-a6bc-c8eb81e71e32.jpg',
+  p3: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/9229392f-fa1a-4865-9c37-fdf5eead22ef.jpg',
+  m1: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/c4dc713f-0261-4ffd-9fab-005331fe35ca.jpg',
+  m2: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/bf04a548-93e8-4eba-8cd9-0df2b9b5d2ef.jpg',
+  e1: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/81e11fa5-1d89-4b83-9e06-a5750ec99f4e.jpg',
+};
+
+type Project = { img: string; title: string; loc: string; area: string; term: string; price: string };
+
+const portfolioCategories: { key: string; label: string; badge: string; color: string; projects: Project[] }[] = [
+  {
+    key: 'premium',
+    label: 'Премиум',
+    badge: 'Premium',
+    color: 'text-gold border-gold bg-gold/10',
+    projects: [
+      { img: IMG.hero, title: 'Резиденция «Лесная»', loc: 'Новорижское шоссе', area: '420 м²', term: '11 мес', price: 'от 38 млн ₽' },
+      { img: IMG.villa, title: 'Вилла «Модерн»', loc: 'Рублёво-Успенское ш.', area: '560 м²', term: '14 мес', price: 'от 62 млн ₽' },
+      { img: IMG.stone, title: 'Особняк «Каменный»', loc: 'Калужское шоссе', area: '380 м²', term: '10 мес', price: 'от 34 млн ₽' },
+      { img: P.p1, title: 'Вилла «Чёрный бриллиант»', loc: 'Ильинское шоссе', area: '680 м²', term: '18 мес', price: 'от 95 млн ₽' },
+      { img: P.p2, title: 'Резиденция «Белый куб»', loc: 'Сколковское ш.', area: '510 м²', term: '13 мес', price: 'от 72 млн ₽' },
+      { img: P.p3, title: 'Усадьба «Скандинавия»', loc: 'Дмитровское шоссе', area: '445 м²', term: '12 мес', price: 'от 44 млн ₽' },
+      { img: IMG.hero, title: 'Особняк «Панорама»', loc: 'Рублёво-Успенское ш.', area: '720 м²', term: '20 мес', price: 'от 110 млн ₽' },
+      { img: P.p1, title: 'Вилла «Форест»', loc: 'Киевское шоссе', area: '390 м²', term: '11 мес', price: 'от 52 млн ₽' },
+      { img: IMG.villa, title: 'Резиденция «Лазурь»', loc: 'Калужское шоссе', area: '580 м²', term: '15 мес', price: 'от 84 млн ₽' },
+      { img: P.p2, title: 'Дом «Архитектор»', loc: 'Новорижское шоссе', area: '460 м²', term: '12 мес', price: 'от 58 млн ₽' },
+    ],
+  },
+  {
+    key: 'business',
+    label: 'Бизнес-класс',
+    badge: 'Business',
+    color: 'text-blue-400 border-blue-400 bg-blue-400/10',
+    projects: [
+      { img: P.m1, title: 'Дом «Уют»', loc: 'Щёлковское шоссе', area: '220 м²', term: '8 мес', price: 'от 12 млн ₽' },
+      { img: P.m2, title: 'Коттедж «Берёзовый»', loc: 'Ярославское шоссе', area: '185 м²', term: '7 мес', price: 'от 9.5 млн ₽' },
+      { img: P.m1, title: 'Дом «Семейный»', loc: 'Горьковское шоссе', area: '240 м²', term: '9 мес', price: 'от 14 млн ₽' },
+      { img: IMG.stone, title: 'Коттедж «Сосновый»', loc: 'Симферопольское ш.', area: '200 м²', term: '8 мес', price: 'от 11 млн ₽' },
+      { img: P.m2, title: 'Дом «Тихий»', loc: 'Можайское шоссе', area: '170 м²', term: '7 мес', price: 'от 8.8 млн ₽' },
+      { img: P.m1, title: 'Коттедж «Заречный»', loc: 'Варшавское шоссе', area: '195 м²', term: '7 мес', price: 'от 10 млн ₽' },
+      { img: IMG.hero, title: 'Дом «Комфорт Плюс»', loc: 'Ленинградское шоссе', area: '260 м²', term: '10 мес', price: 'от 16 млн ₽' },
+      { img: P.m2, title: 'Коттедж «Светлый»', loc: 'Пятницкое шоссе', area: '210 м²', term: '8 мес', price: 'от 12.5 млн ₽' },
+      { img: P.m1, title: 'Дом «Лесная поляна»', loc: 'Минское шоссе', area: '230 м²', term: '9 мес', price: 'от 13 млн ₽' },
+      { img: IMG.villa, title: 'Коттедж «Каширский»', loc: 'Каширское шоссе', area: '190 м²', term: '7 мес', price: 'от 9 млн ₽' },
+    ],
+  },
+  {
+    key: 'economy',
+    label: 'Эконом',
+    badge: 'Economy',
+    color: 'text-green-400 border-green-400 bg-green-400/10',
+    projects: [
+      { img: P.e1, title: 'Дом «Стандарт»', loc: 'Щёлковское шоссе', area: '100 м²', term: '5 мес', price: 'от 3.5 млн ₽' },
+      { img: P.e1, title: 'Коттедж «Бюджет»', loc: 'Егорьевское шоссе', area: '90 м²', term: '4 мес', price: 'от 2.9 млн ₽' },
+      { img: P.e1, title: 'Дом «Компакт»', loc: 'Горьковское шоссе', area: '110 м²', term: '5 мес', price: 'от 3.8 млн ₽' },
+      { img: P.m1, title: 'Дачный дом «Дача»', loc: 'Носовихинское ш.', area: '80 м²', term: '3 мес', price: 'от 2.2 млн ₽' },
+      { img: P.e1, title: 'Дом «Народный»', loc: 'Рязанское шоссе', area: '120 м²', term: '5 мес', price: 'от 4.1 млн ₽' },
+      { img: P.m2, title: 'Коттедж «Простой»', loc: 'Новорязанское ш.', area: '95 м²', term: '4 мес', price: 'от 3.2 млн ₽' },
+      { img: P.e1, title: 'Дом «Дачный плюс»', loc: 'Симферопольское ш.', area: '105 м²', term: '5 мес', price: 'от 3.6 млн ₽' },
+      { img: P.m1, title: 'Коттедж «Семья»', loc: 'Варшавское шоссе', area: '130 м²', term: '6 мес', price: 'от 4.5 млн ₽' },
+      { img: P.e1, title: 'Дом «Уютный»', loc: 'Каширское шоссе', area: '88 м²', term: '4 мес', price: 'от 2.8 млн ₽' },
+      { img: P.m2, title: 'Коттедж «Добротный»', loc: 'Дмитровское шоссе', area: '115 м²', term: '5 мес', price: 'от 3.9 млн ₽' },
+    ],
+  },
 ];
 
 const services = [
@@ -83,6 +145,7 @@ const Index = () => {
   const [material, setMaterial] = useState('gas');
   const [opts, setOpts] = useState<string[]>(['smart']);
 
+  const [activeTab, setActiveTab] = useState('premium');
   const { toast } = useToast();
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
   const [sending, setSending] = useState(false);
@@ -246,7 +309,7 @@ const Index = () => {
       {/* PORTFOLIO */}
       <section id="portfolio" className="py-28 bg-card/40 border-y border-border/50">
         <div className="container">
-          <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
+          <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
             <div>
               <span className="text-gold text-sm tracking-widest uppercase">Портфолио</span>
               <h2 className="font-display text-5xl font-bold mt-4">Реализованные проекты</h2>
@@ -255,25 +318,74 @@ const Index = () => {
               Каждый дом уникален и спроектирован под образ жизни конкретной семьи.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-7">
-            {portfolio.map((p) => (
-              <div key={p.title} className="group relative rounded-2xl overflow-hidden cursor-pointer">
-                <img src={p.img} alt={p.title} className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-                <div className="absolute bottom-0 inset-x-0 p-7">
-                  <div className="flex items-center gap-2 text-gold text-sm mb-2">
-                    <Icon name="MapPin" size={14} /> {p.loc}
-                  </div>
-                  <h3 className="font-display text-3xl font-bold mb-4">{p.title}</h3>
-                  <div className="flex gap-5 text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <span>{p.area}</span>
-                    <span>{p.term}</span>
-                    <span className="text-gold">{p.price}</span>
-                  </div>
-                </div>
-              </div>
+
+          {/* Табы категорий */}
+          <div className="flex flex-wrap gap-3 mb-10">
+            {portfolioCategories.map((cat) => (
+              <button
+                key={cat.key}
+                onClick={() => setActiveTab(cat.key)}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full border text-sm font-medium transition-all ${
+                  activeTab === cat.key ? cat.color : 'border-border text-muted-foreground hover:border-border/80'
+                }`}
+              >
+                {cat.label}
+                <span className={`text-xs px-2 py-0.5 rounded-full ${activeTab === cat.key ? 'bg-current/10' : 'bg-muted'}`}>
+                  {cat.projects.length}
+                </span>
+              </button>
             ))}
           </div>
+
+          {/* Описание категории */}
+          {portfolioCategories.map((cat) =>
+            activeTab === cat.key ? (
+              <div key={cat.key} className="mb-8 flex items-center gap-3">
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-medium ${cat.color}`}>
+                  <Icon name="Star" size={12} /> {cat.badge}
+                </span>
+                <span className="text-muted-foreground text-sm">
+                  {cat.key === 'premium' && 'Авторская архитектура, эксклюзивные материалы, площадь от 380 м²'}
+                  {cat.key === 'business' && 'Качественные материалы, удобная планировка, площадь 170–260 м²'}
+                  {cat.key === 'economy' && 'Оптимальные решения, надёжное строительство, площадь 80–130 м²'}
+                </span>
+              </div>
+            ) : null
+          )}
+
+          {/* Сетка проектов */}
+          {portfolioCategories.map((cat) =>
+            activeTab === cat.key ? (
+              <div key={cat.key} className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-7">
+                {cat.projects.map((p, i) => (
+                  <div key={i} className="group relative rounded-2xl overflow-hidden cursor-pointer">
+                    <img
+                      src={p.img}
+                      alt={p.title}
+                      className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                    <div className="absolute top-4 left-4">
+                      <span className={`text-xs px-2.5 py-1 rounded-full border font-medium ${cat.color}`}>
+                        {cat.badge}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-0 inset-x-0 p-5">
+                      <div className="flex items-center gap-1.5 text-gold text-xs mb-1.5">
+                        <Icon name="MapPin" size={12} /> {p.loc}
+                      </div>
+                      <h3 className="font-display text-xl font-bold mb-3 leading-tight">{p.title}</h3>
+                      <div className="flex flex-wrap gap-3 text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <span className="flex items-center gap-1"><Icon name="Maximize2" size={11} />{p.area}</span>
+                        <span className="flex items-center gap-1"><Icon name="Clock" size={11} />{p.term}</span>
+                        <span className="text-gold font-medium">{p.price}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : null
+          )}
         </div>
       </section>
 
