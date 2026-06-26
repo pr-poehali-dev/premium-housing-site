@@ -4,6 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Slider } from '@/components/ui/slider';
+import { useToast } from '@/hooks/use-toast';
+
+const LEAD_URL = 'https://functions.poehali.dev/ecb985a5-1966-4a54-9078-02c89d51bbe2';
 
 const IMG = {
   hero: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/d3a71e5e-4565-43b4-a866-9b49fba413e5.jpg',
@@ -79,6 +82,45 @@ const Index = () => {
   const [type, setType] = useState('modern');
   const [material, setMaterial] = useState('gas');
   const [opts, setOpts] = useState<string[]>(['smart']);
+
+  const { toast } = useToast();
+  const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
+  const [sending, setSending] = useState(false);
+
+  const sendLead = async (payload: Record<string, string>) => {
+    if (!payload.name?.trim() || !payload.phone?.trim()) {
+      toast({ title: 'Заполните имя и телефон', variant: 'destructive' });
+      return false;
+    }
+    setSending(true);
+    try {
+      const res = await fetch(LEAD_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error();
+      toast({ title: 'Заявка отправлена!', description: 'Архитектор свяжется с вами в течение часа.' });
+      return true;
+    } catch {
+      toast({ title: 'Не удалось отправить', description: 'Попробуйте позже или позвоните нам.', variant: 'destructive' });
+      return false;
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const ok = await sendLead({ ...form, source: 'Форма контактов' });
+    if (ok) setForm({ name: '', phone: '', email: '', message: '' });
+  };
+
+  const handleCalcLead = () => {
+    const estimate = `${fmt(total)} (${area} м², ${floors} эт., ${houseTypes.find((h) => h.key === type)!.label}, ${materials.find((m) => m.key === material)!.label})`;
+    document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' });
+    setForm((p) => ({ ...p, message: `Заявка из калькулятора. Расчёт: ${estimate}` }));
+  };
 
   const base = houseTypes.find((h) => h.key === type)!.base;
   const mult = materials.find((m) => m.key === material)!.mult;
@@ -343,7 +385,7 @@ const Index = () => {
                     <Row key={o.key} l={o.label} v={fmt(o.price)} />
                   ))}
                 </div>
-                <Button onClick={() => scrollTo('contacts')} className="w-full mt-7 h-13 bg-background text-foreground hover:bg-background/90 h-12 font-medium">
+                <Button onClick={handleCalcLead} className="w-full mt-7 bg-background text-foreground hover:bg-background/90 h-12 font-medium">
                   Получить точную смету
                 </Button>
                 <p className="text-xs opacity-70 mt-4 text-center">Расчёт примерный и не является публичной офертой</p>
@@ -449,14 +491,14 @@ const Index = () => {
             </div>
           </div>
 
-          <form onSubmit={(e) => e.preventDefault()} className="p-8 rounded-2xl bg-card border border-border space-y-5">
+          <form onSubmit={handleContactSubmit} className="p-8 rounded-2xl bg-card border border-border space-y-5">
             <h3 className="font-display text-3xl font-bold mb-2">Оставить заявку</h3>
-            <Input placeholder="Ваше имя" className="bg-background border-border h-12" />
-            <Input placeholder="Телефон" className="bg-background border-border h-12" />
-            <Input placeholder="E-mail" className="bg-background border-border h-12" />
-            <Textarea placeholder="Расскажите о проекте: площадь, участок, пожелания" className="bg-background border-border min-h-28" />
-            <Button className="w-full gold-gradient text-primary-foreground hover:opacity-90 h-13 h-12 font-medium">
-              Отправить заявку
+            <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Ваше имя" className="bg-background border-border h-12" />
+            <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="Телефон" className="bg-background border-border h-12" />
+            <Input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="E-mail" className="bg-background border-border h-12" />
+            <Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Расскажите о проекте: площадь, участок, пожелания" className="bg-background border-border min-h-28" />
+            <Button type="submit" disabled={sending} className="w-full gold-gradient text-primary-foreground hover:opacity-90 h-12 font-medium">
+              {sending ? 'Отправляем...' : 'Отправить заявку'}
               <Icon name="Send" size={16} className="ml-1" />
             </Button>
             <p className="text-xs text-muted-foreground text-center">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
