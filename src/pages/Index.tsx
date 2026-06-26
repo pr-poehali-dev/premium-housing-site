@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -163,6 +163,17 @@ const Index = () => {
     const next = modalCat.projects[(modalIdx + 1) % modalCat.projects.length];
     setModal({ ...next, badge: modal!.badge, color: modal!.color });
   };
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (!modal) return;
+      if (e.key === 'ArrowLeft') goModalPrev();
+      if (e.key === 'ArrowRight') goModalNext();
+      if (e.key === 'Escape') setModal(null);
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [modal, modalIdx, modalCat]);
+
   const { toast } = useToast();
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
   const [sending, setSending] = useState(false);
