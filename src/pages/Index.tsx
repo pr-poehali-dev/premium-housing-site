@@ -286,9 +286,9 @@ const Index = () => {
       {/* HERO */}
       <section id="hero" className="relative min-h-screen flex items-center grain">
         <div className="absolute inset-0">
-          <img src={IMG.hero} alt="Премиальный дом" className="w-full h-full object-cover brightness-110" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-background/10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/20" />
+          <img src={IMG.hero} alt="Премиальный дом" className="w-full h-full object-cover brightness-125" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/45 to-background/5" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-background/10" />
         </div>
         <div className="container relative z-10 pt-16 md:pt-20">
           <div className="max-w-2xl animate-fade-up">
