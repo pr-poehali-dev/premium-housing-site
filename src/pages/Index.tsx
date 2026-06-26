@@ -838,6 +838,10 @@ const Index = () => {
             { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/89334558-cd12-4076-af59-a3b7c9da062e.jpg', label: 'Бассейн с подогревом' },
             { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/723c3170-f47a-40bf-9116-cf9e4d26915e.jpg', label: 'Спа-ванная' },
             { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/d0d4b7e7-8f81-42ce-9109-fccf3d95d9ed.jpg', label: 'Фасад в золотой час' },
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/79989762-f42d-4493-8423-152512fbe205.jpg', label: 'Зимний сад' },
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/69216525-489b-49b1-8fb6-129322bef1b6.jpg', label: 'Домашний кабинет' },
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/44b28bb2-761f-4b62-bfa2-d3748bba008c.jpg', label: 'Зона барбекю' },
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/8062185e-78fc-4d62-b463-fe50deadc9f3.jpg', label: 'Парадная лестница' },
           ].map(({ src, label }, i) => (
             <div key={i} className="group relative overflow-hidden rounded-xl">
               <img src={src} alt={label} className="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" />
