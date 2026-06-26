@@ -218,6 +218,21 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState('premium');
   const [modal, setModal] = useState<(Project & { badge: string; color: string }) | null>(null);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [lightbox, setLightbox] = useState<{ src: string; label: string; idx: number } | null>(null);
+  const galleryItems = [
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/b3d9510e-a9c1-4ecb-88e1-05278c029928.jpg', label: 'Гостиная с камином' },
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/a7f97f66-8920-4f66-b4b9-574b2b7f4ca5.jpg', label: 'Ночная подсветка' },
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/bb1b9e31-1202-4879-9b4b-fc170d5617a1.jpg', label: 'Кухня премиум' },
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/b58595b3-7078-4faa-8c27-1b7e9472e6f9.jpg', label: 'Мастер-спальня' },
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/f619ab99-2e91-411d-867a-40d1b23885d7.jpg', label: 'Терраса на закате' },
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/89334558-cd12-4076-af59-a3b7c9da062e.jpg', label: 'Бассейн с подогревом' },
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/723c3170-f47a-40bf-9116-cf9e4d26915e.jpg', label: 'Спа-ванная' },
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/d0d4b7e7-8f81-42ce-9109-fccf3d95d9ed.jpg', label: 'Фасад в золотой час' },
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/79989762-f42d-4493-8423-152512fbe205.jpg', label: 'Зимний сад' },
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/69216525-489b-49b1-8fb6-129322bef1b6.jpg', label: 'Домашний кабинет' },
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/44b28bb2-761f-4b62-bfa2-d3748bba008c.jpg', label: 'Зона барбекю' },
+    { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/8062185e-78fc-4d62-b463-fe50deadc9f3.jpg', label: 'Парадная лестница' },
+  ];
   const [showPopup, setShowPopup] = useState(false);
   const [popupForm, setPopupForm] = useState({ name: '', phone: '' });
   const [popupSent, setPopupSent] = useState(false);
@@ -829,28 +844,56 @@ const Index = () => {
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4">Атмосфера наших домов</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
-          {[
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/b3d9510e-a9c1-4ecb-88e1-05278c029928.jpg', label: 'Гостиная с камином' },
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/a7f97f66-8920-4f66-b4b9-574b2b7f4ca5.jpg', label: 'Ночная подсветка' },
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/bb1b9e31-1202-4879-9b4b-fc170d5617a1.jpg', label: 'Кухня премиум' },
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/b58595b3-7078-4faa-8c27-1b7e9472e6f9.jpg', label: 'Мастер-спальня' },
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/f619ab99-2e91-411d-867a-40d1b23885d7.jpg', label: 'Терраса на закате' },
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/89334558-cd12-4076-af59-a3b7c9da062e.jpg', label: 'Бассейн с подогревом' },
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/723c3170-f47a-40bf-9116-cf9e4d26915e.jpg', label: 'Спа-ванная' },
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/d0d4b7e7-8f81-42ce-9109-fccf3d95d9ed.jpg', label: 'Фасад в золотой час' },
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/79989762-f42d-4493-8423-152512fbe205.jpg', label: 'Зимний сад' },
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/69216525-489b-49b1-8fb6-129322bef1b6.jpg', label: 'Домашний кабинет' },
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/44b28bb2-761f-4b62-bfa2-d3748bba008c.jpg', label: 'Зона барбекю' },
-            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/8062185e-78fc-4d62-b463-fe50deadc9f3.jpg', label: 'Парадная лестница' },
-          ].map(({ src, label }, i) => (
-            <div key={i} className="group relative overflow-hidden rounded-xl">
+          {galleryItems.map(({ src, label }, i) => (
+            <button
+              key={i}
+              onClick={() => setLightbox({ src, label, idx: i })}
+              className="group relative overflow-hidden rounded-xl text-left cursor-zoom-in"
+            >
               <img src={src} alt={label} className="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute top-2 right-2 w-7 h-7 rounded-full bg-background/60 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <Icon name="ZoomIn" size={14} className="text-gold" />
+              </div>
               <div className="absolute bottom-0 inset-x-0 p-3 text-sm font-medium translate-y-full group-hover:translate-y-0 transition-transform duration-300">{label}</div>
-            </div>
+            </button>
           ))}
         </div>
       </section>
+
+      {/* LIGHTBOX */}
+      {lightbox && (
+        <div className="fixed inset-0 z-[120] flex items-center justify-center" onClick={() => setLightbox(null)}>
+          <div className="absolute inset-0 bg-background/95 backdrop-blur-md" />
+          <button onClick={() => setLightbox(null)} className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-gold/50 transition-colors">
+            <Icon name="X" size={18} />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); const prev = (lightbox.idx - 1 + galleryItems.length) % galleryItems.length; setLightbox({ ...galleryItems[prev], idx: prev }); }}
+            className="absolute left-4 z-10 w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-gold/50 transition-colors"
+          >
+            <Icon name="ChevronLeft" size={20} />
+          </button>
+          <div className="relative max-w-4xl max-h-[85vh] mx-16 flex flex-col items-center gap-4" onClick={(e) => e.stopPropagation()}>
+            <img src={lightbox.src} alt={lightbox.label} className="max-h-[75vh] max-w-full object-contain rounded-xl shadow-2xl" />
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+              <span className="text-gold font-medium">{lightbox.label}</span>
+              <span>{lightbox.idx + 1} / {galleryItems.length}</span>
+            </div>
+            <div className="flex gap-1.5">
+              {galleryItems.map((_, i) => (
+                <button key={i} onClick={() => setLightbox({ ...galleryItems[i], idx: i })} className={`w-1.5 h-1.5 rounded-full transition-colors ${i === lightbox.idx ? 'bg-gold' : 'bg-border'}`} />
+              ))}
+            </div>
+          </div>
+          <button
+            onClick={(e) => { e.stopPropagation(); const next = (lightbox.idx + 1) % galleryItems.length; setLightbox({ ...galleryItems[next], idx: next }); }}
+            className="absolute right-4 z-10 w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-gold/50 transition-colors"
+          >
+            <Icon name="ChevronRight" size={20} />
+          </button>
+        </div>
+      )}
 
       {/* REVIEWS */}
       <section id="reviews" className="py-16 md:py-28 bg-card/40 border-y border-border/50">
