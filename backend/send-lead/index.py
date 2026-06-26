@@ -50,7 +50,7 @@ def handler(event: dict, context) -> dict:
         }
 
     lines = [
-        f'Новая заявка с сайта ARCHFORM',
+        f'Новая заявка с сайта ЮНИТ-1',
         f'Источник: {source}',
         '',
         f'Имя: {name}',
