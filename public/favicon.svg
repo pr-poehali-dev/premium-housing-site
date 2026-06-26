@@ -1,4 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#13100C"/>
-  <text x="32" y="38" text-anchor="middle" font-family="Arial Black, sans-serif" font-weight="900" font-size="22" fill="#C9973A">U1</text>
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8B84B"/>
+      <stop offset="50%" stop-color="#C9973A"/>
+      <stop offset="100%" stop-color="#A67B28"/>
+    </linearGradient>
+  </defs>
+  <!-- Фон -->
+  <rect width="64" height="64" rx="10" fill="#0E0C09"/>
+  <!-- Золотая рамка -->
+  <rect x="3" y="3" width="58" height="58" rx="8" fill="none" stroke="url(#gold)" stroke-width="1.5" opacity="0.6"/>
+  <!-- Буква U -->
+  <text x="14" y="43" font-family="Georgia, serif" font-weight="700" font-size="30" fill="url(#gold)" letter-spacing="-1">U</text>
+  <!-- Цифра 1 -->
+  <text x="38" y="43" font-family="Georgia, serif" font-weight="700" font-size="30" fill="url(#gold)">1</text>
+  <!-- Тонкая линия-разделитель -->
+  <line x1="35" y1="17" x2="35" y2="47" stroke="url(#gold)" stroke-width="0.8" opacity="0.5"/>
 </svg>
