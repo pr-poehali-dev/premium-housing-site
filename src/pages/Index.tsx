@@ -221,12 +221,21 @@ const Index = () => {
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
   const [sending, setSending] = useState(false);
 
+  const ymGoal = (goal: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const w = window as any;
+    if (typeof window !== 'undefined' && w.ym) {
+      w.ym(101026698, 'reachGoal', goal);
+    }
+  };
+
   const sendLead = async (payload: Record<string, string>) => {
     if (!payload.name?.trim() || !payload.phone?.trim()) {
       toast({ title: 'Заполните имя и телефон', variant: 'destructive' });
       return false;
     }
     setSending(true);
+    ymGoal('lead_form_submit');
     try {
       const res = await fetch(LEAD_URL, {
         method: 'POST',
@@ -234,6 +243,7 @@ const Index = () => {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error();
+      ymGoal('lead_success');
       toast({ title: 'Заявка отправлена!', description: 'Архитектор свяжется с вами в течение часа.' });
       return true;
     } catch {
@@ -286,10 +296,10 @@ const Index = () => {
             ))}
           </nav>
           <div className="flex items-center gap-3 md:gap-5">
-            <a href="tel:89331770086" className="hidden md:block text-sm font-bold text-foreground hover:text-gold transition-colors">
+            <a href="tel:89331770086" onClick={() => ymGoal('phone_click')} className="hidden md:block text-sm font-bold text-foreground hover:text-gold transition-colors">
               8 (933) 177-00-86
             </a>
-            <Button onClick={() => scrollTo('contacts')} className="gold-gradient text-primary-foreground hover:opacity-90 font-medium hidden sm:inline-flex text-sm px-4 h-9 md:h-10">
+            <Button onClick={() => { scrollTo('contacts'); ymGoal('header_cta_click'); }} className="gold-gradient text-primary-foreground hover:opacity-90 font-medium hidden sm:inline-flex text-sm px-4 h-9 md:h-10">
               Обсудить проект
             </Button>
             {/* Бургер */}
@@ -1101,6 +1111,7 @@ const Index = () => {
       <div className="fixed bottom-6 right-4 md:right-8 z-40 flex flex-col items-end gap-3">
         <a
           href="tel:89331770086"
+          onClick={() => ymGoal('phone_float_click')}
           className="group flex items-center gap-3 gold-gradient text-primary-foreground rounded-full shadow-2xl shadow-gold/30 px-5 py-3.5 font-medium text-sm hover:opacity-90 transition-all hover:scale-105"
         >
           <Icon name="Phone" size={18} />
