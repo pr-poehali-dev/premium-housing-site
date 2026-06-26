@@ -692,6 +692,34 @@ const Index = () => {
                 <p className="text-muted-foreground leading-relaxed mb-7">{modal.desc}</p>
               )}
 
+              {/* Похожие проекты */}
+              {(() => {
+                const cat = portfolioCategories.find((c) => c.badge === modal.badge);
+                const similar = cat?.projects.filter((p) => p.title !== modal.title).slice(0, 3) ?? [];
+                if (!similar.length) return null;
+                return (
+                  <div className="mb-7">
+                    <div className="text-xs text-muted-foreground uppercase tracking-widest mb-3">Похожие проекты</div>
+                    <div className="grid grid-cols-3 gap-3">
+                      {similar.map((p) => (
+                        <button
+                          key={p.title}
+                          onClick={() => setModal({ ...p, badge: modal.badge, color: modal.color })}
+                          className="group relative rounded-xl overflow-hidden aspect-[4/3] text-left"
+                        >
+                          <img src={p.img} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
+                          <div className="absolute bottom-0 inset-x-0 p-2.5">
+                            <div className="text-xs font-medium leading-tight line-clamp-1">{p.title}</div>
+                            <div className="text-gold text-xs mt-0.5">{p.price}</div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button
                   className="flex-1 gold-gradient text-primary-foreground hover:opacity-90 h-12 font-medium"
