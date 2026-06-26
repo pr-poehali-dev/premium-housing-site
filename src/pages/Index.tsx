@@ -1185,21 +1185,63 @@ const Index = () => {
                 );
               })()}
 
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button
-                  className="flex-1 gold-gradient text-primary-foreground hover:opacity-90 h-12 font-medium"
-                  onClick={() => {
-                    setModal(null);
-                    setForm((f) => ({ ...f, message: `Интересует проект: ${modal.title} (${modal.area}, ${modal.price})` }));
-                    setTimeout(() => document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' }), 100);
+              {/* CTA блок */}
+              <div className="rounded-2xl bg-gradient-to-br from-gold/8 via-gold/5 to-transparent border border-gold/20 p-5 md:p-6 mb-2">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl gold-gradient flex items-center justify-center shrink-0">
+                    <Icon name="MessageSquare" size={18} className="text-primary-foreground" />
+                  </div>
+                  <div>
+                    <div className="font-semibold mb-0.5">Хотите такой же дом?</div>
+                    <div className="text-sm text-muted-foreground">Оставьте номер — архитектор перезвонит и рассчитает стоимость под ваш участок бесплатно.</div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-2 mb-4 text-xs text-center">
+                  {[
+                    { icon: 'ShieldCheck', text: 'Фиксированная цена' },
+                    { icon: 'Clock', text: 'Звонок за 1 час' },
+                    { icon: 'Gift', text: 'Проект в подарок' },
+                  ].map(({ icon, text }) => (
+                    <div key={text} className="flex flex-col items-center gap-1 p-2 rounded-xl bg-background/50 border border-border/50">
+                      <Icon name={icon} size={16} className="text-gold" />
+                      <span className="text-muted-foreground leading-tight">{text}</span>
+                    </div>
+                  ))}
+                </div>
+                <form
+                  className="flex flex-col sm:flex-row gap-2"
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    const fd = new FormData(e.currentTarget);
+                    const ok = await sendLead({
+                      name: fd.get('name') as string,
+                      phone: fd.get('phone') as string,
+                      source: `Карточка проекта: ${modal.title}`,
+                      message: `Интересует проект: ${modal.title} (${modal.area}, ${modal.price})`,
+                    });
+                    if (ok) { setModal(null); ymGoal('modal_lead_submit'); }
                   }}
                 >
-                  <Icon name="Send" size={16} className="mr-2" />
-                  Обсудить проект
-                </Button>
+                  <Input name="name" placeholder="Ваше имя" required className="h-11 bg-background border-border flex-1" />
+                  <Input name="phone" placeholder="Телефон" required className="h-11 bg-background border-border flex-1" />
+                  <Button type="submit" disabled={sending} className="h-11 gold-gradient text-primary-foreground hover:opacity-90 font-medium px-5 shrink-0 whitespace-nowrap">
+                    {sending ? '...' : 'Получить расчёт'}
+                  </Button>
+                </form>
+              </div>
+
+              <div className="flex gap-3">
+                <a
+                  href="tel:+79331770086"
+                  onClick={() => ymGoal('phone_click')}
+                  className="flex-1 flex items-center justify-center gap-2 h-11 rounded-lg border border-border hover:border-gold/50 hover:text-gold transition-colors text-sm font-medium"
+                >
+                  <Icon name="Phone" size={15} />
+                  Позвонить сейчас
+                </a>
                 <Button
                   variant="outline"
-                  className="h-12 border-border hover:border-gold hover:text-gold"
+                  className="h-11 border-border hover:border-gold/50 hover:text-gold px-5"
                   onClick={() => setModal(null)}
                 >
                   Закрыть
