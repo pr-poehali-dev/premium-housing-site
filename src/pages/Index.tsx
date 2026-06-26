@@ -280,7 +280,7 @@ const Index = () => {
           </button>
           <nav className="hidden lg:flex items-center gap-6">
             {nav.map((n) => (
-              <button key={n.id} onClick={() => scrollTo(n.id)} className="text-sm font-bold text-muted-foreground hover:text-gold transition-colors">
+              <button key={n.id} onClick={() => scrollTo(n.id)} className="text-sm font-bold text-white hover:text-gold transition-colors">
                 {n.label}
               </button>
             ))}
