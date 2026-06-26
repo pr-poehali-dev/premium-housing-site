@@ -469,7 +469,6 @@ const Index = () => {
             { val: '4.9', label: 'рейтинг', sub: 'по отзывам клиентов' },
           ].map(({ val, label, sub }) => (
             <div key={label} className="relative p-4 md:p-7 rounded-2xl bg-card border border-border overflow-hidden group hover:border-gold/40 transition-all">
-              <div className="absolute -top-4 -right-4 font-display text-6xl md:text-8xl font-bold text-gold/5 group-hover:text-gold/10 transition-colors select-none">{val}</div>
               <div className="font-display text-3xl md:text-5xl font-bold gold-text-gradient mb-1 md:mb-2">{val}</div>
               <div className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1">{label}</div>
               <div className="text-xs text-muted-foreground hidden sm:block">{sub}</div>
