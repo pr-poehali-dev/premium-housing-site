@@ -34,7 +34,10 @@ const P = {
   e1: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/81e11fa5-1d89-4b83-9e06-a5750ec99f4e.jpg',
 };
 
-type Project = { img: string; title: string; loc: string; area: string; term: string; price: string };
+type Project = {
+  img: string; title: string; loc: string; area: string; term: string; price: string;
+  desc?: string; style?: string; floors?: string; bedrooms?: string; bathrooms?: string; year?: string;
+};
 
 const portfolioCategories: { key: string; label: string; badge: string; color: string; projects: Project[] }[] = [
   {
@@ -43,16 +46,16 @@ const portfolioCategories: { key: string; label: string; badge: string; color: s
     badge: 'Premium',
     color: 'text-gold border-gold bg-gold/10',
     projects: [
-      { img: IMG.hero, title: 'Резиденция «Лесная»', loc: 'Новорижское шоссе', area: '420 м²', term: '11 мес', price: 'от 38 млн ₽' },
-      { img: IMG.villa, title: 'Вилла «Модерн»', loc: 'Рублёво-Успенское ш.', area: '560 м²', term: '14 мес', price: 'от 62 млн ₽' },
-      { img: IMG.stone, title: 'Особняк «Каменный»', loc: 'Калужское шоссе', area: '380 м²', term: '10 мес', price: 'от 34 млн ₽' },
-      { img: P.p1, title: 'Вилла «Чёрный бриллиант»', loc: 'Ильинское шоссе', area: '680 м²', term: '18 мес', price: 'от 95 млн ₽' },
-      { img: P.p2, title: 'Резиденция «Белый куб»', loc: 'Сколковское ш.', area: '510 м²', term: '13 мес', price: 'от 72 млн ₽' },
-      { img: P.p3, title: 'Усадьба «Скандинавия»', loc: 'Дмитровское шоссе', area: '445 м²', term: '12 мес', price: 'от 44 млн ₽' },
-      { img: IMG.hero, title: 'Особняк «Панорама»', loc: 'Рублёво-Успенское ш.', area: '720 м²', term: '20 мес', price: 'от 110 млн ₽' },
-      { img: P.p1, title: 'Вилла «Форест»', loc: 'Киевское шоссе', area: '390 м²', term: '11 мес', price: 'от 52 млн ₽' },
-      { img: IMG.villa, title: 'Резиденция «Лазурь»', loc: 'Калужское шоссе', area: '580 м²', term: '15 мес', price: 'от 84 млн ₽' },
-      { img: P.p2, title: 'Дом «Архитектор»', loc: 'Новорижское шоссе', area: '460 м²', term: '12 мес', price: 'от 58 млн ₽' },
+      { img: IMG.hero, title: 'Резиденция «Лесная»', loc: 'Новорижское шоссе', area: '420 м²', term: '11 мес', price: 'от 38 млн ₽', style: 'Современный минимализм', floors: '2', bedrooms: '5', bathrooms: '4', year: '2024', desc: 'Дом с панорамными окнами в пол, выходящими на сосновый лес. Авторский фасад из тёмного кирпича ручной формовки и лиственницы. Умный дом Crestron, бассейн 12×5 м, гараж на 3 авто.' },
+      { img: IMG.villa, title: 'Вилла «Модерн»', loc: 'Рублёво-Успенское ш.', area: '560 м²', term: '14 мес', price: 'от 62 млн ₽', style: 'Архитектурный модернизм', floors: '3', bedrooms: '6', bathrooms: '5', year: '2024', desc: 'Трёхуровневая вилла с консольным вторым этажом и эксплуатируемой кровлей. Бетон, стекло и тиковое дерево. Панорамный лифт, кинозал, вайнрум, спа-зона.' },
+      { img: IMG.stone, title: 'Особняк «Каменный»', loc: 'Калужское шоссе', area: '380 м²', term: '10 мес', price: 'от 34 млн ₽', style: 'Классика с современным акцентом', floors: '2', bedrooms: '4', bathrooms: '3', year: '2023', desc: 'Фасад из натурального доломита и патинированной меди. Высокие потолки 3.6 м, каминный зал, библиотека, мастер-спальня с гардеробной 28 м². Ландшафт с прудом.' },
+      { img: P.p1, title: 'Вилла «Чёрный бриллиант»', loc: 'Ильинское шоссе', area: '680 м²', term: '18 мес', price: 'от 95 млн ₽', style: 'Люкс-авангард', floors: '3', bedrooms: '7', bathrooms: '6', year: '2025', desc: 'Монолитный дом с вентилируемым фасадом из чёрного клинкера. Бассейн с подогревом 15×7 м, теннисный корт, гостевой дом 80 м², гараж на 5 авто. Система умного дома Control4.' },
+      { img: P.p2, title: 'Резиденция «Белый куб»', loc: 'Сколковское ш.', area: '510 м²', term: '13 мес', price: 'от 72 млн ₽', style: 'Японский минимализм', floors: '2', bedrooms: '5', bathrooms: '4', year: '2025', desc: 'Белый монолит с большими плоскостями остекления и внутренним двориком-патио. Авторский дизайн-интерьер в стиле ваби-саби. Японский сад, ротонда для медитаций, онсэн.' },
+      { img: P.p3, title: 'Усадьба «Скандинавия»', loc: 'Дмитровское шоссе', area: '445 м²', term: '12 мес', price: 'от 44 млн ₽', style: 'Скандинавский стиль', floors: '2', bedrooms: '5', bathrooms: '3', year: '2023', desc: 'Тёплый скандинавский дом из клеёного бруса с утеплённым фасадом. Открытая терраса 60 м², финская баня 40 м², уличный камин. Панорамные виды на лес и озеро.' },
+      { img: IMG.hero, title: 'Особняк «Панорама»', loc: 'Рублёво-Успенское ш.', area: '720 м²', term: '20 мес', price: 'от 110 млн ₽', style: 'Неоклассика', floors: '3', bedrooms: '8', bathrooms: '7', year: '2025', desc: 'Главная усадьба с колоннадой и симметричным фасадом из травертина. Парадный вход с витражом 8 м, бальный зал 90 м², indoor-бассейн 20×8 м, собственная скважина.' },
+      { img: P.p1, title: 'Вилла «Форест»', loc: 'Киевское шоссе', area: '390 м²', term: '11 мес', price: 'от 52 млн ₽', style: 'Биофильный дизайн', floors: '2', bedrooms: '4', bathrooms: '3', year: '2024', desc: 'Дом, интегрированный в рельеф лесного участка. Живая кровля, фасад из лиственницы термо, зимний сад 35 м². Геотермальное отопление, рекуперация, класс энергопотребления A+.' },
+      { img: IMG.villa, title: 'Резиденция «Лазурь»', loc: 'Калужское шоссе', area: '580 м²', term: '15 мес', price: 'от 84 млн ₽', style: 'Средиземноморский модерн', floors: '2', bedrooms: '6', bathrooms: '5', year: '2024', desc: 'Дом с открытыми террасами и арками в средиземноморском духе. Infinity-бассейн 18×5 м с видом на природу, летняя кухня, погреб на 500 бутылок, оранжерея.' },
+      { img: P.p2, title: 'Дом «Архитектор»', loc: 'Новорижское шоссе', area: '460 м²', term: '12 мес', price: 'от 58 млн ₽', style: 'Конструктивизм', floors: '2', bedrooms: '5', bathrooms: '4', year: '2023', desc: 'Авторский дом архитектора Романа Белова — игра объёмов, нависающие консоли и стеклянные переходы. Мастерская 45 м², галерея-коридор, кровля-терраса с панорамным видом 360°.' },
     ],
   },
   {
@@ -61,16 +64,16 @@ const portfolioCategories: { key: string; label: string; badge: string; color: s
     badge: 'Business',
     color: 'text-blue-400 border-blue-400 bg-blue-400/10',
     projects: [
-      { img: P.m1, title: 'Дом «Уют»', loc: 'Щёлковское шоссе', area: '220 м²', term: '8 мес', price: 'от 12 млн ₽' },
-      { img: P.m2, title: 'Коттедж «Берёзовый»', loc: 'Ярославское шоссе', area: '185 м²', term: '7 мес', price: 'от 9.5 млн ₽' },
-      { img: P.m1, title: 'Дом «Семейный»', loc: 'Горьковское шоссе', area: '240 м²', term: '9 мес', price: 'от 14 млн ₽' },
-      { img: IMG.stone, title: 'Коттедж «Сосновый»', loc: 'Симферопольское ш.', area: '200 м²', term: '8 мес', price: 'от 11 млн ₽' },
-      { img: P.m2, title: 'Дом «Тихий»', loc: 'Можайское шоссе', area: '170 м²', term: '7 мес', price: 'от 8.8 млн ₽' },
-      { img: P.m1, title: 'Коттедж «Заречный»', loc: 'Варшавское шоссе', area: '195 м²', term: '7 мес', price: 'от 10 млн ₽' },
-      { img: IMG.hero, title: 'Дом «Комфорт Плюс»', loc: 'Ленинградское шоссе', area: '260 м²', term: '10 мес', price: 'от 16 млн ₽' },
-      { img: P.m2, title: 'Коттедж «Светлый»', loc: 'Пятницкое шоссе', area: '210 м²', term: '8 мес', price: 'от 12.5 млн ₽' },
-      { img: P.m1, title: 'Дом «Лесная поляна»', loc: 'Минское шоссе', area: '230 м²', term: '9 мес', price: 'от 13 млн ₽' },
-      { img: IMG.villa, title: 'Коттедж «Каширский»', loc: 'Каширское шоссе', area: '190 м²', term: '7 мес', price: 'от 9 млн ₽' },
+      { img: P.m1, title: 'Дом «Уют»', loc: 'Щёлковское шоссе', area: '220 м²', term: '8 мес', price: 'от 12 млн ₽', style: 'Современный комфорт', floors: '2', bedrooms: '4', bathrooms: '2', year: '2024', desc: 'Просторный двухэтажный дом с открытой планировкой первого этажа. Кирпич + штукатурка, потолки 2.8 м, тёплый пол по всему дому, котельная на газе, терраса 30 м².' },
+      { img: P.m2, title: 'Коттедж «Берёзовый»', loc: 'Ярославское шоссе', area: '185 м²', term: '7 мес', price: 'от 9.5 млн ₽', style: 'Загородный уют', floors: '2', bedrooms: '3', bathrooms: '2', year: '2023', desc: 'Уютный коттедж в окружении берёзовой рощи. Газобетон с облицовкой под дерево, мансардный второй этаж, барбекю-зона, детская площадка, место под баню.' },
+      { img: P.m1, title: 'Дом «Семейный»', loc: 'Горьковское шоссе', area: '240 м²', term: '9 мес', price: 'от 14 млн ₽', style: 'Функциональный модерн', floors: '2', bedrooms: '4', bathrooms: '3', year: '2024', desc: 'Продуманный дом для большой семьи с отдельным входом для гостей. Гараж на 2 авто, кладовая 12 м², сауна, игровая комната для детей, ухоженный сад.' },
+      { img: IMG.stone, title: 'Коттедж «Сосновый»', loc: 'Симферопольское ш.', area: '200 м²', term: '8 мес', price: 'от 11 млн ₽', style: 'Экостиль', floors: '2', bedrooms: '4', bathrooms: '2', year: '2023', desc: 'Дом с натуральными материалами в окружении соснового леса. Фасад из рустованного кирпича, деревянные балки в интерьере, большая веранда с видом на лес.' },
+      { img: P.m2, title: 'Дом «Тихий»', loc: 'Можайское шоссе', area: '170 м²', term: '7 мес', price: 'от 8.8 млн ₽', style: 'Компактный бизнес', floors: '2', bedrooms: '3', bathrooms: '2', year: '2023', desc: 'Компактный и функциональный дом для семьи из 3–4 человек. Рациональная планировка без лишних коридоров, тёплый гараж, зона барбекю, автономная канализация.' },
+      { img: P.m1, title: 'Коттедж «Заречный»', loc: 'Варшавское шоссе', area: '195 м²', term: '7 мес', price: 'от 10 млн ₽', style: 'Классический коттедж', floors: '2', bedrooms: '4', bathrooms: '2', year: '2024', desc: 'Традиционный коттедж с двускатной кровлей и эркером. Крытая терраса, цокольный этаж с возможностью оборудования под бильярдную или спортзал.' },
+      { img: IMG.hero, title: 'Дом «Комфорт Плюс»', loc: 'Ленинградское шоссе', area: '260 м²', term: '10 мес', price: 'от 16 млн ₽', style: 'Премиум-комфорт', floors: '2', bedrooms: '5', bathrooms: '3', year: '2025', desc: 'Самый просторный в классе бизнес. Кухня-гостиная 55 м², мастер-спальня с гардеробной и джакузи, гараж на 2 авто, кабинет, зимний сад 20 м².' },
+      { img: P.m2, title: 'Коттедж «Светлый»', loc: 'Пятницкое шоссе', area: '210 м²', term: '8 мес', price: 'от 12.5 млн ₽', style: 'Светлый минимализм', floors: '2', bedrooms: '4', bathrooms: '2', year: '2024', desc: 'Белоснежный коттедж с большими окнами и светлыми интерьерами. Квадратные формы, плоская кровля с ограждением, крытый навес для авто, ухоженный газон.' },
+      { img: P.m1, title: 'Дом «Лесная поляна»', loc: 'Минское шоссе', area: '230 м²', term: '9 мес', price: 'от 13 млн ₽', style: 'Природный стиль', floors: '2', bedrooms: '4', bathrooms: '2', year: '2023', desc: 'Дом на краю леса с выходом на поляну. Панорамные окна с видом на природу, открытая деревянная терраса, мангальная зона, место под баню уже подготовлено.' },
+      { img: IMG.villa, title: 'Коттедж «Каширский»', loc: 'Каширское шоссе', area: '190 м²', term: '7 мес', price: 'от 9 млн ₽', style: 'Практичный модерн', floors: '2', bedrooms: '3', bathrooms: '2', year: '2023', desc: 'Надёжный дом с фундаментом на буронабивных сваях. Газобетон D400, штукатурный фасад, энергоэффективные окна, встроенный гараж, подвал под хранение.' },
     ],
   },
   {
@@ -79,16 +82,16 @@ const portfolioCategories: { key: string; label: string; badge: string; color: s
     badge: 'Economy',
     color: 'text-green-400 border-green-400 bg-green-400/10',
     projects: [
-      { img: P.e1, title: 'Дом «Стандарт»', loc: 'Щёлковское шоссе', area: '100 м²', term: '5 мес', price: 'от 3.5 млн ₽' },
-      { img: P.e1, title: 'Коттедж «Бюджет»', loc: 'Егорьевское шоссе', area: '90 м²', term: '4 мес', price: 'от 2.9 млн ₽' },
-      { img: P.e1, title: 'Дом «Компакт»', loc: 'Горьковское шоссе', area: '110 м²', term: '5 мес', price: 'от 3.8 млн ₽' },
-      { img: P.m1, title: 'Дачный дом «Дача»', loc: 'Носовихинское ш.', area: '80 м²', term: '3 мес', price: 'от 2.2 млн ₽' },
-      { img: P.e1, title: 'Дом «Народный»', loc: 'Рязанское шоссе', area: '120 м²', term: '5 мес', price: 'от 4.1 млн ₽' },
-      { img: P.m2, title: 'Коттедж «Простой»', loc: 'Новорязанское ш.', area: '95 м²', term: '4 мес', price: 'от 3.2 млн ₽' },
-      { img: P.e1, title: 'Дом «Дачный плюс»', loc: 'Симферопольское ш.', area: '105 м²', term: '5 мес', price: 'от 3.6 млн ₽' },
-      { img: P.m1, title: 'Коттедж «Семья»', loc: 'Варшавское шоссе', area: '130 м²', term: '6 мес', price: 'от 4.5 млн ₽' },
-      { img: P.e1, title: 'Дом «Уютный»', loc: 'Каширское шоссе', area: '88 м²', term: '4 мес', price: 'от 2.8 млн ₽' },
-      { img: P.m2, title: 'Коттедж «Добротный»', loc: 'Дмитровское шоссе', area: '115 м²', term: '5 мес', price: 'от 3.9 млн ₽' },
+      { img: P.e1, title: 'Дом «Стандарт»', loc: 'Щёлковское шоссе', area: '100 м²', term: '5 мес', price: 'от 3.5 млн ₽', style: 'Практичный', floors: '2', bedrooms: '3', bathrooms: '1', year: '2023', desc: 'Надёжный дом из газобетона с утеплённым фасадом. Все коммуникации подведены, отопление газовое, окна пластиковые с двойным стеклопакетом, крыша металлочерепица.' },
+      { img: P.e1, title: 'Коттедж «Бюджет»', loc: 'Егорьевское шоссе', area: '90 м²', term: '4 мес', price: 'от 2.9 млн ₽', style: 'Экономичный', floors: '1', bedrooms: '3', bathrooms: '1', year: '2023', desc: 'Одноэтажный дом с рациональной планировкой. Идеально подходит для дачи или постоянного проживания небольшой семьи. Быстрый монтаж, гарантия на конструктив 5 лет.' },
+      { img: P.e1, title: 'Дом «Компакт»', loc: 'Горьковское шоссе', area: '110 м²', term: '5 мес', price: 'от 3.8 млн ₽', style: 'Компактный', floors: '2', bedrooms: '3', bathrooms: '1', year: '2024', desc: 'Двухэтажный дом с мансардой. Три спальни, просторная кухня-гостиная, санузел на каждом этаже. Утеплённый фундамент, антисептированные деревянные перекрытия.' },
+      { img: P.m1, title: 'Дачный дом «Дача»', loc: 'Носовихинское ш.', area: '80 м²', term: '3 мес', price: 'от 2.2 млн ₽', style: 'Дачный', floors: '1', bedrooms: '2', bathrooms: '1', year: '2023', desc: 'Лёгкий каркасный дом для сезонного и круглогодичного проживания. Быстрый монтаж 3 месяца, утеплитель ISOVER 200 мм, отделка вагонкой, открытая терраса 15 м².' },
+      { img: P.e1, title: 'Дом «Народный»', loc: 'Рязанское шоссе', area: '120 м²', term: '5 мес', price: 'от 4.1 млн ₽', style: 'Семейный эконом', floors: '2', bedrooms: '4', bathrooms: '1', year: '2024', desc: 'Просторный для своей цены дом с четырьмя спальнями. Газобетон 400 мм, штукатурный фасад, ламинат и плитка в отделке. Участок под озеленение подготовлен.' },
+      { img: P.m2, title: 'Коттедж «Простой»', loc: 'Новорязанское ш.', area: '95 м²', term: '4 мес', price: 'от 3.2 млн ₽', style: 'Лаконичный', floors: '2', bedrooms: '3', bathrooms: '1', year: '2023', desc: 'Честный дом без лишнего. Кирпичная кладка в полтора кирпича, металлопластиковые окна, газовый котёл, разводка труб по всему дому. Готов к чистовой отделке.' },
+      { img: P.e1, title: 'Дом «Дачный плюс»', loc: 'Симферопольское ш.', area: '105 м²', term: '5 мес', price: 'от 3.6 млн ₽', style: 'Дача плюс', floors: '2', bedrooms: '3', bathrooms: '1', year: '2024', desc: 'Улучшенная версия дачного дома с полноценным вторым этажом. Утеплённый цоколь, место под погреб, открытая и закрытая веранды, дровяная печь в гостиной.' },
+      { img: P.m1, title: 'Коттедж «Семья»', loc: 'Варшавское шоссе', area: '130 м²', term: '6 мес', price: 'от 4.5 млн ₽', style: 'Семейный', floors: '2', bedrooms: '4', bathrooms: '2', year: '2024', desc: 'Самый просторный в линейке эконом. Четыре спальни, два санузла, гардеробная. Газобетон + облицовочный кирпич, гараж на одно авто, уличное освещение.' },
+      { img: P.e1, title: 'Дом «Уютный»', loc: 'Каширское шоссе', area: '88 м²', term: '4 мес', price: 'от 2.8 млн ₽', style: 'Уютный', floors: '1', bedrooms: '2', bathrooms: '1', year: '2023', desc: 'Компактный одноэтажный дом для пары или небольшой семьи. Скандинавский облик, светлые тона, кухня-гостиная 28 м², мастер-спальня с гардеробом, тёплая веранда.' },
+      { img: P.m2, title: 'Коттедж «Добротный»', loc: 'Дмитровское шоссе', area: '115 м²', term: '5 мес', price: 'от 3.9 млн ₽', style: 'Добротный', floors: '2', bedrooms: '3', bathrooms: '2', year: '2024', desc: 'Коттедж с усиленным фундаментом и двойным утеплением — для круглогодичного проживания в суровые зимы. Тёплый пол на первом этаже, два санузла, котельная.' },
     ],
   },
 ];
@@ -146,6 +149,7 @@ const Index = () => {
   const [opts, setOpts] = useState<string[]>(['smart']);
 
   const [activeTab, setActiveTab] = useState('premium');
+  const [modal, setModal] = useState<(Project & { badge: string; color: string }) | null>(null);
   const { toast } = useToast();
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
   const [sending, setSending] = useState(false);
@@ -358,7 +362,7 @@ const Index = () => {
             activeTab === cat.key ? (
               <div key={cat.key} className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-7">
                 {cat.projects.map((p, i) => (
-                  <div key={i} className="group relative rounded-2xl overflow-hidden cursor-pointer">
+                  <div key={i} onClick={() => setModal({ ...p, badge: cat.badge, color: cat.color })} className="group relative rounded-2xl overflow-hidden cursor-pointer">
                     <img
                       src={p.img}
                       alt={p.title}
@@ -617,6 +621,101 @@ const Index = () => {
           </form>
         </div>
       </section>
+
+      {/* PROJECT MODAL */}
+      {modal && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          onClick={() => setModal(null)}
+        >
+          <div className="absolute inset-0 bg-background/90 backdrop-blur-md" />
+          <div
+            className="relative bg-card border border-border rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Фото */}
+            <div className="relative aspect-[16/9] overflow-hidden rounded-t-3xl">
+              <img src={modal.img} alt={modal.title} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
+              <button
+                onClick={() => setModal(null)}
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/70 backdrop-blur flex items-center justify-center text-foreground hover:bg-background transition-colors"
+              >
+                <Icon name="X" size={20} />
+              </button>
+              <div className="absolute bottom-5 left-6">
+                <span className={`text-xs px-2.5 py-1 rounded-full border font-medium ${modal.color}`}>
+                  {modal.badge}
+                </span>
+              </div>
+            </div>
+
+            {/* Контент */}
+            <div className="p-8">
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <h2 className="font-display text-3xl font-bold leading-tight mb-1">{modal.title}</h2>
+                  <div className="flex items-center gap-1.5 text-gold text-sm">
+                    <Icon name="MapPin" size={14} /> {modal.loc}
+                  </div>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className="font-display text-2xl font-bold text-gold">{modal.price}</div>
+                  {modal.year && <div className="text-xs text-muted-foreground mt-1">Год: {modal.year}</div>}
+                </div>
+              </div>
+
+              {/* Характеристики */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                {[
+                  { icon: 'Maximize2', label: 'Площадь', val: modal.area },
+                  { icon: 'Layers', label: 'Этажей', val: modal.floors ? `${modal.floors} эт.` : '—' },
+                  { icon: 'BedDouble', label: 'Спален', val: modal.bedrooms ? `${modal.bedrooms} сп.` : '—' },
+                  { icon: 'Clock', label: 'Срок', val: modal.term },
+                ].map(({ icon, label, val }) => (
+                  <div key={label} className="p-4 rounded-xl bg-background border border-border text-center">
+                    <Icon name={icon} size={20} className="text-gold mx-auto mb-1" />
+                    <div className="text-xs text-muted-foreground mb-0.5">{label}</div>
+                    <div className="font-semibold text-sm">{val}</div>
+                  </div>
+                ))}
+              </div>
+
+              {modal.style && (
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-xs text-muted-foreground">Стиль:</span>
+                  <span className="text-xs px-2.5 py-1 rounded-full bg-muted border border-border">{modal.style}</span>
+                </div>
+              )}
+
+              {modal.desc && (
+                <p className="text-muted-foreground leading-relaxed mb-7">{modal.desc}</p>
+              )}
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  className="flex-1 gold-gradient text-primary-foreground hover:opacity-90 h-12 font-medium"
+                  onClick={() => {
+                    setModal(null);
+                    setForm((f) => ({ ...f, message: `Интересует проект: ${modal.title} (${modal.area}, ${modal.price})` }));
+                    setTimeout(() => document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' }), 100);
+                  }}
+                >
+                  <Icon name="Send" size={16} className="mr-2" />
+                  Обсудить проект
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-12 border-border hover:border-gold hover:text-gold"
+                  onClick={() => setModal(null)}
+                >
+                  Закрыть
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* FOOTER */}
       <footer className="py-12 border-t border-border/50">
