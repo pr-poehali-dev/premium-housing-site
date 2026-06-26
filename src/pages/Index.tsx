@@ -233,27 +233,32 @@ const Index = () => {
       <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-border/50">
         <div className="container flex items-center justify-between h-20">
           <button onClick={() => scrollTo('hero')} className="flex items-center gap-2">
-            <span className="font-display text-3xl font-bold tracking-tight">ARCH<span className="text-gold">FORM</span></span>
+            <span className="font-display text-2xl font-black tracking-tight uppercase">ЮНИТ <span className="text-gold">1</span></span>
           </button>
           <nav className="hidden lg:flex items-center gap-7">
             {nav.map((n) => (
-              <button key={n.id} onClick={() => scrollTo(n.id)} className="text-sm text-muted-foreground hover:text-gold transition-colors">
+              <button key={n.id} onClick={() => scrollTo(n.id)} className="text-sm font-bold text-muted-foreground hover:text-gold transition-colors">
                 {n.label}
               </button>
             ))}
           </nav>
-          <Button onClick={() => scrollTo('contacts')} className="gold-gradient text-primary-foreground hover:opacity-90 font-medium hidden sm:inline-flex">
-            Обсудить проект
-          </Button>
+          <div className="hidden sm:flex items-center gap-5">
+            <a href="tel:89331770086" className="text-sm font-bold text-foreground hover:text-gold transition-colors">
+              8 (933) 177-00-86
+            </a>
+            <Button onClick={() => scrollTo('contacts')} className="gold-gradient text-primary-foreground hover:opacity-90 font-medium">
+              Обсудить проект
+            </Button>
+          </div>
         </div>
       </header>
 
       {/* HERO */}
       <section id="hero" className="relative min-h-screen flex items-center grain">
         <div className="absolute inset-0">
-          <img src={IMG.hero} alt="Премиальный дом" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40" />
+          <img src={IMG.hero} alt="Премиальный дом" className="w-full h-full object-cover brightness-110" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-background/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/20" />
         </div>
         <div className="container relative z-10 pt-20">
           <div className="max-w-2xl animate-fade-up">
@@ -935,8 +940,8 @@ const Index = () => {
       {/* FOOTER */}
       <footer className="py-12 border-t border-border/50">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-6">
-          <span className="font-display text-2xl font-bold">ARCH<span className="text-gold">FORM</span></span>
-          <p className="text-sm text-muted-foreground">© 2026 ARCHFORM — премиальное строительство в Москве и области</p>
+          <span className="font-display text-2xl font-black uppercase tracking-tight">ЮНИТ <span className="text-gold">1</span></span>
+          <p className="text-sm text-muted-foreground">© 2026 ЮНИТ 1 — премиальное строительство в Москве и области</p>
           <div className="flex gap-4">
             {['Send', 'Instagram', 'Youtube'].map((ic) => (
               <button key={ic} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/40 transition-colors">
