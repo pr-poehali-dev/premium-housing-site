@@ -906,9 +906,9 @@ const Index = () => {
             </p>
             <div className="space-y-5">
               {[
-                ['Phone', '+7 (495) 000-00-00', 'Ежедневно 9:00–21:00'],
-                ['Mail', 'hello@archform.ru', 'Ответим в течение часа'],
-                ['MapPin', 'Москва, Пресненская наб., 12', 'Офис и шоурум'],
+                ['Phone', '8 (933) 177-00-86', 'Ежедневно 9:00–21:00'],
+                ['Mail', 'emmas@yandex.ru', 'Ответим в течение часа'],
+                ['MapPin', 'Одинцово, Маршала Неделина, 6Б, офис 515', 'Офис и шоурум'],
               ].map(([ic, t, s]) => (
                 <div key={t} className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl border border-gold/30 flex items-center justify-center text-gold shrink-0">
@@ -1191,7 +1191,7 @@ const Index = () => {
               <span>ИНН: 5032263756</span>
               <span>КПП: 503201001</span>
               <span>ОГРН: 1135032002181</span>
-              <span className="w-full sm:w-auto">143005, Московская область, Одинцовский район, г. Одинцово, Можайское шоссе, д. 112А, пом/ком 29/1</span>
+              <span className="w-full sm:w-auto">Одинцово, ул. Маршала Неделина, 6Б, офис 515</span>
             </div>
           </div>
         </div>
