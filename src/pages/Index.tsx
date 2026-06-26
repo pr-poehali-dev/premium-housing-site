@@ -417,6 +417,72 @@ const Index = () => {
         </div>
       </section>
 
+      {/* WHY US */}
+      <section className="py-28 container">
+        <div className="text-center mb-16">
+          <span className="text-gold text-sm tracking-widest uppercase">Наши преимущества</span>
+          <h2 className="font-display text-5xl font-bold mt-4">Почему выбирают нас</h2>
+          <p className="text-muted-foreground mt-4 max-w-xl mx-auto">17 лет мы строим дома, в которые влюбляются с первого взгляда и живут с удовольствием десятилетиями.</p>
+        </div>
+
+        {/* Большой блок с цифрами */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+          {[
+            { val: '180+', label: 'домов построено', sub: 'в Москве и области' },
+            { val: '17', label: 'лет на рынке', sub: 'с 2009 года' },
+            { val: '100%', label: 'сделок без переплат', sub: 'фиксированная смета' },
+            { val: '4.9', label: 'средний рейтинг', sub: 'по отзывам клиентов' },
+          ].map(({ val, label, sub }) => (
+            <div key={label} className="relative p-7 rounded-2xl bg-card border border-border overflow-hidden group hover:border-gold/40 transition-all">
+              <div className="absolute -top-4 -right-4 font-display text-8xl font-bold text-gold/5 group-hover:text-gold/10 transition-colors select-none">{val}</div>
+              <div className="font-display text-5xl font-bold gold-text-gradient mb-2">{val}</div>
+              <div className="font-semibold text-sm mb-1">{label}</div>
+              <div className="text-xs text-muted-foreground">{sub}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Карточки преимуществ */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {[
+            { icon: 'FileCheck', title: 'Фиксированная смета', desc: 'Цена прописана в договоре и не меняется. Никаких доплат и неожиданных расходов в процессе стройки.' },
+            { icon: 'ShieldCheck', title: 'Гарантия 10 лет', desc: 'Официальная гарантия на конструктив дома. При любых вопросах — бесплатно устраняем в течение 30 дней.' },
+            { icon: 'Camera', title: 'Еженедельные отчёты', desc: 'Фото и видео с объекта каждую пятницу. Вы всегда знаете, что происходит на стройке, даже не приезжая.' },
+            { icon: 'UserCheck', title: 'Личный менеджер', desc: 'Один контакт на весь проект. Ваш менеджер координирует архитекторов, инженеров и строителей.' },
+            { icon: 'Hammer', title: 'Собственная бригада', desc: 'Не субподряд — все мастера в штате. Постоянный контроль качества и высокая скорость работ.' },
+            { icon: 'Banknote', title: 'Прозрачное ценообразование', desc: 'Детальная смета на 200+ позиций. Вы видите стоимость каждого материала и каждой работы.' },
+            { icon: 'Map', title: 'Помощь с участком', desc: 'Помогаем подобрать участок, провести геологию и согласовать проект с учётом ГПЗУ и ПЗЗ.' },
+            { icon: 'Leaf', title: 'Энергоэффективность', desc: 'Проектируем дома класса А и А+. Тёплый контур, рекуперация, автоматика — минимальные счета за ЖКХ.' },
+            { icon: 'Star', title: 'Авторская архитектура', desc: 'Каждый проект создаётся с нуля под вас. Мы не продаём типовые планировки — только уникальные решения.' },
+          ].map(({ icon, title, desc }) => (
+            <div key={title} className="flex gap-4 p-6 rounded-2xl border border-border bg-card/50 hover:border-gold/40 transition-all group">
+              <div className="w-12 h-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0 group-hover:bg-gold/20 transition-colors">
+                <Icon name={icon} size={22} className="text-gold" />
+              </div>
+              <div>
+                <h3 className="font-semibold mb-1.5">{title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA-полоска */}
+        <div className="mt-12 rounded-2xl gold-gradient p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <div className="font-display text-3xl font-bold text-primary-foreground mb-1">Убедитесь сами — бесплатная консультация</div>
+            <div className="text-primary-foreground/80 text-sm">Архитектор ответит на вопросы и покажет похожие реализованные объекты</div>
+          </div>
+          <Button
+            onClick={() => document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-background text-foreground hover:bg-background/90 h-12 px-8 font-medium shrink-0"
+          >
+            Записаться на встречу
+            <Icon name="ArrowRight" size={16} className="ml-2" />
+          </Button>
+        </div>
+      </section>
+
       {/* SERVICES */}
       <section id="services" className="py-28 container">
         <div className="text-center mb-16">
