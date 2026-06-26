@@ -513,6 +513,67 @@ const Index = () => {
         </div>
       </section>
 
+      {/* PROCESS */}
+      <section className="py-28 bg-card/40 border-y border-border/50">
+        <div className="container">
+          <div className="text-center mb-20">
+            <span className="text-gold text-sm tracking-widest uppercase">Как мы работаем</span>
+            <h2 className="font-display text-5xl font-bold mt-4">Процесс строительства</h2>
+            <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
+              От первого звонка до ключей в руке — прозрачный процесс без неожиданностей.
+            </p>
+          </div>
+
+          {/* Этапы */}
+          <div className="relative">
+            {/* Линия-трек */}
+            <div className="hidden lg:block absolute top-10 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
+            <div className="grid lg:grid-cols-6 gap-8">
+              {[
+                { n: '01', icon: 'Phone', title: 'Заявка', desc: 'Оставляете заявку или звоните. Менеджер связывается в течение часа и задаёт уточняющие вопросы.', days: '1 день' },
+                { n: '02', icon: 'Map', title: 'Выезд на участок', desc: 'Архитектор приезжает на участок, оценивает рельеф, грунт, ориентацию по сторонам света, соседей.', days: '2–3 дня' },
+                { n: '03', icon: 'PencilRuler', title: 'Проектирование', desc: 'Разрабатываем концепцию, 3D-визуализацию и рабочую документацию. Согласовываем каждый этап.', days: '30–60 дней' },
+                { n: '04', icon: 'FileText', title: 'Договор и смета', desc: 'Подписываем договор с фиксированной ценой. Детальная смета на 200+ позиций без скрытых статей.', days: '3–5 дней' },
+                { n: '05', icon: 'HardHat', title: 'Строительство', desc: 'Ведём строительство собственной бригадой. Еженедельные фотоотчёты, доступ на объект в любое время.', days: '7–20 мес' },
+                { n: '06', icon: 'KeyRound', title: 'Сдача под ключ', desc: 'Принимаете дом с актом выполненных работ. Гарантия 10 лет, инструктаж по всем системам дома.', days: 'Финал' },
+              ].map(({ n, icon, title, desc, days }, i) => (
+                <div key={n} className="relative flex flex-col items-center text-center lg:items-start lg:text-left">
+                  {/* Кружок с номером */}
+                  <div className="relative z-10 w-20 h-20 rounded-full gold-gradient flex items-center justify-center mb-6 shadow-lg shadow-gold/20">
+                    <Icon name={icon} size={28} className="text-primary-foreground" />
+                  </div>
+                  {/* Стрелка между этапами (мобильная) */}
+                  {i < 5 && (
+                    <div className="lg:hidden w-px h-8 bg-border mb-6" />
+                  )}
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs mb-3">
+                    <Icon name="Clock" size={11} /> {days}
+                  </div>
+                  <div className="font-display text-xl font-bold mb-2">{title}</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Дополнительные детали */}
+          <div className="mt-20 grid md:grid-cols-3 gap-6">
+            {[
+              { icon: 'BarChart3', title: 'Контроль качества на каждом этапе', desc: 'Независимый технадзор, лабораторные испытания бетона, контроль укладки арматуры и узлов примыканий.' },
+              { icon: 'MessageSquare', title: 'Личный кабинет и чат', desc: 'Доступ к онлайн-журналу стройки: фото, документы, график, финансовая отчётность в одном окне.' },
+              { icon: 'Trophy', title: 'Приёмка с экспертом', desc: 'На финальной приёмке присутствует независимый строительный эксперт. Все замечания устраняем бесплатно.' },
+            ].map(({ icon, title, desc }) => (
+              <div key={title} className="p-7 rounded-2xl bg-background border border-border">
+                <Icon name={icon} size={28} className="text-gold mb-4" />
+                <h3 className="font-display text-xl font-bold mb-3">{title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CALCULATOR */}
       <section id="calc" className="py-28 bg-card/40 border-y border-border/50">
         <div className="container">
