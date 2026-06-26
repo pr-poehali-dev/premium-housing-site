@@ -966,16 +966,30 @@ const Index = () => {
       )}
 
       {/* FOOTER */}
-      <footer className="py-12 border-t border-border/50">
-        <div className="container flex flex-col md:flex-row items-center justify-between gap-6">
+      <footer className="border-t border-border/50">
+        {/* Основная часть */}
+        <div className="container py-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <span className="font-display text-2xl font-black uppercase tracking-tight">ЮНИТ <span className="text-gold">1</span></span>
-          <p className="text-sm text-muted-foreground">© 2026 ЮНИТ 1 — премиальное строительство в Москве и области</p>
+          <p className="text-sm text-muted-foreground text-center">© 2026 ЮНИТ 1 — премиальное строительство в Москве и области</p>
           <div className="flex gap-4">
             {['Send', 'Instagram', 'Youtube'].map((ic) => (
               <button key={ic} className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/40 transition-colors">
                 <Icon name={ic} size={18} />
               </button>
             ))}
+          </div>
+        </div>
+
+        {/* Реквизиты */}
+        <div className="border-t border-border/30 bg-card/30">
+          <div className="container py-6">
+            <div className="flex flex-wrap gap-x-8 gap-y-1 text-xs text-muted-foreground/70">
+              <span>ООО «Юнит-1»</span>
+              <span>ИНН: 5032263756</span>
+              <span>КПП: 503201001</span>
+              <span>ОГРН: 1135032002181</span>
+              <span className="w-full sm:w-auto">143005, Московская область, Одинцовский район, г. Одинцово, Можайское шоссе, д. 112А, пом/ком 29/1</span>
+            </div>
           </div>
         </div>
       </footer>
