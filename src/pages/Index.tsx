@@ -829,10 +829,20 @@ const Index = () => {
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4">Атмосфера наших домов</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
-          {[IMG.hero, IMG.villa, IMG.stone, IMG.villa, IMG.stone, IMG.hero, IMG.villa, IMG.stone].map((src, i) => (
+          {[
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/b3d9510e-a9c1-4ecb-88e1-05278c029928.jpg', label: 'Гостиная с камином' },
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/a7f97f66-8920-4f66-b4b9-574b2b7f4ca5.jpg', label: 'Ночная подсветка' },
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/bb1b9e31-1202-4879-9b4b-fc170d5617a1.jpg', label: 'Кухня премиум' },
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/b58595b3-7078-4faa-8c27-1b7e9472e6f9.jpg', label: 'Мастер-спальня' },
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/f619ab99-2e91-411d-867a-40d1b23885d7.jpg', label: 'Терраса на закате' },
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/89334558-cd12-4076-af59-a3b7c9da062e.jpg', label: 'Бассейн с подогревом' },
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/723c3170-f47a-40bf-9116-cf9e4d26915e.jpg', label: 'Спа-ванная' },
+            { src: 'https://cdn.poehali.dev/projects/f3a515bf-4f01-42e4-849d-c06e4fed9faa/files/d0d4b7e7-8f81-42ce-9109-fccf3d95d9ed.jpg', label: 'Фасад в золотой час' },
+          ].map(({ src, label }, i) => (
             <div key={i} className="group relative overflow-hidden rounded-xl">
-              <img src={src} alt={`Галерея ${i + 1}`} className="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/15 transition-colors" />
+              <img src={src} alt={label} className="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute bottom-0 inset-x-0 p-3 text-sm font-medium translate-y-full group-hover:translate-y-0 transition-transform duration-300">{label}</div>
             </div>
           ))}
         </div>
