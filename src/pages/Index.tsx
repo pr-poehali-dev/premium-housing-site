@@ -150,6 +150,19 @@ const Index = () => {
 
   const [activeTab, setActiveTab] = useState('premium');
   const [modal, setModal] = useState<(Project & { badge: string; color: string }) | null>(null);
+
+  const modalCat = modal ? portfolioCategories.find((c) => c.badge === modal.badge) : null;
+  const modalIdx = modalCat ? modalCat.projects.findIndex((p) => p.title === modal!.title) : -1;
+  const goModalPrev = () => {
+    if (!modalCat || modalIdx < 0) return;
+    const prev = modalCat.projects[(modalIdx - 1 + modalCat.projects.length) % modalCat.projects.length];
+    setModal({ ...prev, badge: modal!.badge, color: modal!.color });
+  };
+  const goModalNext = () => {
+    if (!modalCat || modalIdx < 0) return;
+    const next = modalCat.projects[(modalIdx + 1) % modalCat.projects.length];
+    setModal({ ...next, badge: modal!.badge, color: modal!.color });
+  };
   const { toast } = useToast();
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
   const [sending, setSending] = useState(false);
@@ -635,19 +648,55 @@ const Index = () => {
           >
             {/* Фото */}
             <div className="relative aspect-[16/9] overflow-hidden rounded-t-3xl">
-              <img src={modal.img} alt={modal.title} className="w-full h-full object-cover" />
+              <img src={modal.img} alt={modal.title} className="w-full h-full object-cover transition-all duration-500" />
               <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
+
+              {/* Закрыть */}
               <button
                 onClick={() => setModal(null)}
-                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/70 backdrop-blur flex items-center justify-center text-foreground hover:bg-background transition-colors"
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/70 backdrop-blur flex items-center justify-center text-foreground hover:bg-background transition-colors z-10"
               >
                 <Icon name="X" size={20} />
               </button>
-              <div className="absolute bottom-5 left-6">
+
+              {/* Стрелки навигации */}
+              <button
+                onClick={(e) => { e.stopPropagation(); goModalPrev(); }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-background/70 backdrop-blur flex items-center justify-center text-foreground hover:bg-background hover:text-gold transition-all z-10"
+              >
+                <Icon name="ChevronLeft" size={22} />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); goModalNext(); }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-background/70 backdrop-blur flex items-center justify-center text-foreground hover:bg-background hover:text-gold transition-all z-10"
+              >
+                <Icon name="ChevronRight" size={22} />
+              </button>
+
+              {/* Бейдж + счётчик */}
+              <div className="absolute bottom-5 left-6 flex items-center gap-3">
                 <span className={`text-xs px-2.5 py-1 rounded-full border font-medium ${modal.color}`}>
                   {modal.badge}
                 </span>
+                {modalCat && (
+                  <span className="text-xs text-white/70 bg-background/50 backdrop-blur px-2.5 py-1 rounded-full">
+                    {modalIdx + 1} / {modalCat.projects.length}
+                  </span>
+                )}
               </div>
+
+              {/* Точки-индикаторы */}
+              {modalCat && (
+                <div className="absolute bottom-5 right-6 flex gap-1.5">
+                  {modalCat.projects.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={(e) => { e.stopPropagation(); setModal({ ...modalCat.projects[i], badge: modal.badge, color: modal.color }); }}
+                      className={`w-1.5 h-1.5 rounded-full transition-all ${i === modalIdx ? 'bg-gold w-4' : 'bg-white/40 hover:bg-white/70'}`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Контент */}
